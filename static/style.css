@@ -1,0 +1,90 @@
+/* ---------- Grouped Items ---------- */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial;
+}
+
+/* ---------- Header ---------- */
+#header {
+    padding: 20px;
+    height: 15%;
+    background: linear-gradient(to top right, #88b8fd 0%, #000080 100%);
+    text-align: center;
+    letter-spacing: 3px;
+    color: white;
+    font-size: 20px;
+}
+
+/* ---------- Map Container ---------- */
+#mapContainer {
+    height: 80%;
+    width: 100%;
+}
+
+/* ---------- Station Detail Section ---------- */
+#station {
+    float: left;
+    padding: 20px;
+    height: 100%;
+    width: 20%;
+    background: #ffffff;
+    box-shadow: -5px 0px 10px #cccccc inset;
+}
+
+#stationSelect {
+    padding: 30px;
+    width: 100%;
+}
+
+select {
+    width: 100%;
+}
+
+#stationDetails {
+    width: 100%;
+    padding: 20px;
+}
+
+/* ---------- Map ---------- */
+#map {
+    float: right;
+    width: 80%;
+    height: 100%;
+    /* for map loading */
+    padding: 20px;
+    background-color: #efefef;
+}
+
+/* ---------- Footer ---------- */
+#footer {
+    display: block;
+    margin: 0 auto;
+    padding: 15px;
+    height: 5%;
+    background: #000000;
+    text-align: center;
+    letter-spacing: 1px;
+    color: white;
+}
+
+/* ---------- For Smaller Screens ---------- */
+@media (max-width: 700px) {
+    #station, #map {
+        width: 100%;
+    }
+    #station {
+        height: 20%;
+        overflow: auto;
+        box-shadow: 0px -5px 10px #cccccc inset;
+    }
+    #map {
+        overflow: auto;
+    }
+}
