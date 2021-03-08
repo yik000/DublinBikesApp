@@ -12,6 +12,7 @@
 
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
         <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ mapApiKey }}"  async></script>
 
     </head>
 
@@ -19,13 +20,37 @@
     <body>
 
         <!------ Header ------>
-        <header id="header"></header>
+        <header id="header">
+            <h1>Dublin Bikes</h1>
+        </header>
 
-        <!------ Map ------>
-        <div id="map"></div>
+        <!------ Map Container ------>
+        <div id="mapContainer">
+
+            <!------ Station Info ------>
+            <div id="station">
+    
+                <h2>Station Details</h2>
+    
+                <!------ Dropdown Station Selection ------>
+                <div id="stationSelect">
+                    <select name="station" id="selection">
+                        <option>Select a station</option>
+                    </select>
+                </div>
+    
+                <!------ Detailed Station Info ------>
+                <div id="stationDetails">Select a station to see details</div>
+    
+            </div>
+    
+            <!------ Map ------>
+            <div id="map">Loading...</div>
+    
+        </div>
 
         <!------ Footer ------>
-        <footer id="footer"></footer>
+        <footer id="footer">Copyright &copy; 2021 TeamRocket-DublinBikes</footer>
 
     </body>
 
