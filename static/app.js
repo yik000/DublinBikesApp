@@ -5,21 +5,26 @@ function initMap() {
     //Set currentInfoWindow to null
     var currentInfoWindow = null;
 
+    // Fetch station data
     fetch("/stations").then(response => {
         return response.json();
     }).then(data => {
+
+        // Print data to console
         console.log("data: ", data);
 
+        // Create Map
         map = new google.maps.Map(document.getElementById("map"), {
             center: { lat: 53.349804, lng: -6.260310 },
             zoom: 14,
         });
 
-
+    // For each station
     data.forEach(station => {
+
+        // Create Marker
         const marker = new google.maps.Marker({
             position: {lat: station.position_lat, lng: station.position_long},
-            //label: station.name,
             map: map,
         });
 
@@ -47,7 +52,7 @@ function initMap() {
             });
 
             // Open infoWindow and assign to currentInfoWindow
-            infowindow.open(map, marker);
+            infoWindow.open(map, marker);
             currentInfoWindow = infoWindow;
 
         });
