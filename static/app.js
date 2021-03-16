@@ -19,6 +19,13 @@ function initMap() {
             zoom: 14,
         });
 
+        // Close currentInfoWindow on map click
+        map.addListener("click", () => {
+            if(currentInfoWindow !== null){
+                currentInfoWindow.close();
+            }
+        });
+
     // For each station
     data.forEach(station => {
 
@@ -26,13 +33,6 @@ function initMap() {
         const marker = new google.maps.Marker({
             position: {lat: station.position_lat, lng: station.position_long},
             map: map,
-        });
-
-        // Close currentInfoWindow on map click
-        map.addListener("click", () => {
-            if(currentInfoWindow !== null){
-                currentInfoWindow.close();
-            }
         });
 
         // Add onClick() function to station marker
