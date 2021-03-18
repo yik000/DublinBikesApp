@@ -1,15 +1,15 @@
-from flask import Flask
+from flask import Flask, render_template
 from sqlalchemy import create_engine
 import pandas as pd
 import dbinfo
 import traceback
 
 #dbinfo
-user = dbinfo.user
-password = dbinfo.password
-uri = dbinfo.uri
-port = dbinfo.port
-db = dbinfo.db
+user = dbinfo.USER
+password = dbinfo.PASS
+uri = dbinfo.DBURI
+port = dbinfo.PORT
+db = dbinfo.DBNAME
 
 
 app = Flask(__name__)
@@ -17,7 +17,7 @@ app = Flask(__name__)
 
 @app.route("/")
 def index():
-    return app.send_static_file("index.html")
+    return render_template("index.html", mapApiKey=dbinfo.MAPKEY)
 
 
 #parsing from stations table
