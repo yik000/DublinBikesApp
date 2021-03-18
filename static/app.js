@@ -1,37 +1,69 @@
-<script>
-    let map;
+let map;
 
-    function initMap() {
-        fetch("/stations").then(response => {
-            return = response.json();
-        }).then(data => {
-            console.log("data: ", data);
+function initMap() {
 
-            map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 53.349804, lng: -6.260310 },
-                zoom: 13;
-            });
+    //Set currentInfoWindow to null
+    var currentInfoWindow = null;
 
+    // Fetch station data
+    fetch("/stations").then(response => {
+        return response.json();
+    }).then(data => {
 
+        // Print data to console
+        console.log("data: ", data);
+
+        // Create Map
+        map = new google.maps.Map(document.getElementById("map"), {
+            center: { lat: 53.349804, lng: -6.260310 },
+            zoom: 14,
+        });
+
+        // Close currentInfoWindow on map click
+        map.addListener("click", () => {
+            if(currentInfoWindow !== null){
+                currentInfoWindow.close();
+            }
+        });
+        
+        // For each station
         data.forEach(station => {
+            
+            // Create Marker
             const marker = new google.maps.Marker({
-                position: {lat: station.pos_lat, lng: station.pos_lng},
-                //label: station.name,
+                position: {lat: station.position_lat, lng: station.position_long},
                 map: map,
             });
 
+            // Add onClick() function to station marker
             marker.addListener("click", () => {
-                const infowindow = new google.maps.InfoWindow({
-                    content: '<h1> ' + station.name + '</h1><b>' + station.bike_stands + '</b>'
-
+                
+                // If open close currentInfoWindow
+                if(currentInfoWindow !== null){
+                    currentInfoWindow.close();
+                }
+                
+                var banking = "Unavailable";
+                if(station.banking == 1){banking = "Available"};
+            
+                // Create infoWindow for station marker
+                var infoWindow = new google.maps.InfoWindow({
+                    content:'<h3> ' + station.name + '</h3><b>Stands: </b>' + station.stands + '<br><b>Banking: </b>' + banking
                 });
-                infowindow.open(map, marker);
+            
+                // Open infoWindow and assign to currentInfoWindow
+                infoWindow.open(map, marker);
+                currentInfoWindow = infoWindow;
+        
             });
+    
         });
+    
+    }).catch(err => {
+        console.log("Oops!", err);
+    })
 
-        }).catch(err => {
-            console.log("Oops!", err);
-        })
+}
 
-    }
-</script>
+// Call map function
+initMap();
