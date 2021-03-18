@@ -5,11 +5,11 @@ import dbinfo
 import traceback
 
 #dbinfo
-user = dbinfo.user
-password = dbinfo.password
-uri = dbinfo.uri
-port = dbinfo.port
-db = dbinfo.db
+user = dbinfo.USER
+password = dbinfo.PASS
+uri = dbinfo.DBURI
+port = 3600
+db = dbinfo.DBNAME
 
 
 app = Flask(__name__)
