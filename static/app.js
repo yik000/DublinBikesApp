@@ -68,25 +68,24 @@ function initMap() {
 // Call map function
 initMap();
 
-//initalising function for drop down menu for stations
+//initialising function for drop down menu for stations
 function dropDownStations() {
     // Fetch station data
     fetch("/stations").then(response => {
         return response.json();
     }).then(stationData => {
 
-        let eachStation;
+        console.log(stationData);
+        let eachStation = "<select name='station' id='selection'>" + "<option>Select a Station</option>";
         //for loop to access stations json
         stationData.forEach(station => {
-            //error check if parsed..
-            console.log(station.address);
 
             //input address
             eachStation += "<option>" + station.address + "</option>";
         })
 
         //call selection id
-        document.getElementById('selection').innerHTML = eachStation;
+        document.getElementById('stationSelect').innerHTML = eachStation;
 
     }).catch(err => {
         console.log("Oops!", err);
