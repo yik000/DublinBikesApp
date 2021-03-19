@@ -24,7 +24,7 @@ def index():
 @app.route("/stations")
 def location():
     engine = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
-    query = "select name, banking, stands, number, post_lat, post_long, address from stations;"
+    query = "select number, name, address, stands, banking, position_lat, position_long from stations;"
     df = pd.read_sql_query(query, engine)
     # print(df)
     return df.to_json(orient='records')
