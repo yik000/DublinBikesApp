@@ -76,12 +76,12 @@ function dropDownStations() {
     }).then(stationData => {
 
         console.log(stationData);
-        let eachStation = "<select name='station' id='selection'>" + "<option>Select a Station</option>";
+        let eachStation = "<select name='station' id='selection' onchange='showStation()'>" + "<option>Select a Station</option>";
         //for loop to access stations json
         stationData.forEach(station => {
 
             //input address
-            eachStation += "<option>" + station.address + "</option>";
+            eachStation += "<option value=" + station.number + ">" + station.address + "</option>";
         })
 
         //call selection id
@@ -94,3 +94,43 @@ function dropDownStations() {
 
 //Call dropdownstations function
 dropDownStations();
+
+//displays the chosen station and displays dynamic data
+function showStation() {
+    var id = document.getElementById("selection");
+    var stationNum = id.value;
+
+    //fetch request from availability table
+    fetch("/chosen_station").then(response => {
+        return response.json();
+    }).then(standData => {
+
+        //forEach to go through each row and filter through it based on the value chosen
+        let station;
+        standData.forEach(stand => {
+            if (stationNum == stand.number) {
+                station = stand;
+                console.log(station);
+            }
+        })
+
+        //station info
+        let stationInfo = station;
+        let address = id.options[id.selectedIndex].text;
+        let update = new Date(stationInfo.lastUpdate * 1000);
+        let stationTable =
+            "<h1>" + address + "</h1>" +
+            "<h3>Status</h3>" +
+            "<p>" + stationInfo.status + "</p>" +
+            "<h3>Available Bikes</h3>" +
+            "<p>" + stationInfo.avail_bikes + "</p>" +
+            "<h3>Available Stands</h3>" +
+            "<p>" + stationInfo.avail_stands + "</p><br>" +
+            "<p>Last Updated: " + update.toUTCString() + "</p>";
+
+        document.getElementById('stationDetails').innerHTML = stationTable;
+
+    }).catch(err => {
+        console.log("Oops!", err);
+    })
+}
