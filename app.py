@@ -3,6 +3,7 @@ from sqlalchemy import create_engine
 import pandas as pd
 import dbinfo
 import traceback
+import datetime
 
 #dbinfo
 user = dbinfo.USER
@@ -40,6 +41,19 @@ def availability():
     # print(df2)
     return df2.to_json(orient='records')
 
+# Retrieve average hourly availability data for selected station
+@app.route("/hourlyAvailability/<int:stationNum>")
+def hourly_availability(stationNum):
+    engine = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
+    sql = f"""
+        SELECT avg(avail_bikes) AS 'avg_bikes', avg(avail_stands) AS 'avg_stands', hour(last_update) AS 'hour'
+        FROM availability
+        WHERE number = {stationNum} AND weekday(last_update) = {datetime.datetime.now().weekday()} AND hour(last_update) BETWEEN 7 AND 20
+        GROUP BY hour(last_update)
+        ORDER BY hour(last_update) ASC;
+        """
+    df = pd.read_sql_query(sql, engine)
+    return df.to_json(orient='records')
 
 #parsing from weather table
 @app.route("/weather_info")
