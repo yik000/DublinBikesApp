@@ -8,7 +8,7 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: Arial;
+    font-family: Helvetica;
 }
 
 
@@ -16,7 +16,8 @@ body {
 #header {
     padding: 20px;
     height: 15%;
-    background: linear-gradient(to top right, #88b8fd 0%, #000080 100%);
+    background-color: #63a4ff;
+    background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
     text-align: center;
     letter-spacing: 3px;
     color: white;
@@ -46,15 +47,13 @@ body {
 }
 
 #stationSelect {
+    margin-left: 15px;
     padding: 30px;
     width: 100%;
     cursor: pointer;
     max-width:  20em;
     width: 100%;
-}
-
-select {
-    width: 100%;
+    letter-spacing: 1.5px;
 }
 
 #selection {
@@ -64,7 +63,7 @@ select {
     width: 100%;
     padding: 10px;
     text-align: center;
-
+    letter-spacing: 1.5px;
 }
 #stationDetails h2 {
     padding-bottom: 15px;
