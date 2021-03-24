@@ -11,6 +11,7 @@ body {
     font-family: Arial;
 }
 
+
 /* ---------- Header ---------- */
 #header {
     padding: 20px;
@@ -22,11 +23,13 @@ body {
     font-size: 20px;
 }
 
+
 /* ---------- Map Container ---------- */
 #mapContainer {
     height: 80%;
     width: 100%;
 }
+
 
 /* ---------- Station Detail Section ---------- */
 #station {
@@ -45,16 +48,37 @@ body {
 #stationSelect {
     padding: 30px;
     width: 100%;
+    cursor: pointer;
+    max-width:  20em;
+    width: 100%;
 }
 
 select {
     width: 100%;
 }
 
+#selection {
+    background: #ececec;
+}
 #stationDetails {
     width: 100%;
-    padding: 20px;
+    padding: 10px;
+    text-align: center;
+
 }
+#stationDetails h2 {
+    padding-bottom: 15px;
+}
+
+.select {
+    width: 100%;
+    height: 40px;
+    opacity: 60;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    background: none transparent;
+    border: 0 none;
+}
+
 
 /* ---------- Map ---------- */
 #map {
@@ -65,6 +89,7 @@ select {
     padding: 20px;
     background-color: #efefef;
 }
+
 
 /* ---------- Footer ---------- */
 #footer {
@@ -77,6 +102,7 @@ select {
     letter-spacing: 1px;
     color: white;
 }
+
 
 /* ---------- For Smaller Screens ---------- */
 @media (max-width: 700px) {
@@ -96,8 +122,10 @@ select {
     }
 }
 
+
 /* ---------- For Smaller Screens (in Height) ---------- */
 @media (max-height: 750px) {
+
     #station {
         overflow: auto;
         box-shadow: 0px -5px 10px #cccccc inset;
