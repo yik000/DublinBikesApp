@@ -76,6 +76,54 @@ function hourlyAvailabilityChart(stationNum) {
 
     document.getElementById("hourly_chart").innerHTML = "Loading chart...";
 
+    // Chart styling options
+    var chartTitle = 'Average Hourly Availability for station ' + stationNum;
+    var options = {
+        // Title of chart
+        title: chartTitle,
+        legend: 'top',
+        focusTarget: 'category',
+        hAxis: {
+            title: 'Hour',
+            format: '0.00',
+            viewWindow: {
+                min: [6, 30, 0],
+                max: [20, 30, 0]
+            },
+            textStyle: {
+                fontSize: 14,
+                color: '#053061',
+                bold: true,
+                italic: false
+            },
+            titleTextStyle: {
+                fontSize: 18,
+                color: '#053061',
+                bold: true,
+                italic: false
+            }
+        },
+        vAxis: {
+            title: 'Number Available',
+            viewWindow: {
+                min: [0]
+            },
+            format: '0',
+            textStyle: {
+                fontSize: 18,
+                color: '#67001f',
+                bold: false,
+                italic: false
+            },
+            titleTextStyle: {
+                fontSize: 18,
+                color: '#67001f',
+                bold: true,
+                italic: false
+            }
+        }
+    };
+
     // Generate URL and fetch data
     url = "/hourlyAvailability/" + stationNum
     fetch(url).then(response => {
