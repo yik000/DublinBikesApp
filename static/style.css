@@ -134,10 +134,8 @@ body {
         overflow: hidden;
     }
 }
-@media (max-height: 750px) {
     #header h1 {
         padding-bottom: 25px;
         font-size: 19.5px;
         overflow: hidden;
     }
-}
