@@ -80,6 +80,9 @@ select {
 
 /* ---------- For Smaller Screens ---------- */
 @media (max-width: 700px) {
+    #header {
+        font-size: 15px;
+    }
     #station, #map {
         width: 100%;
     }
@@ -90,5 +93,18 @@ select {
     }
     #map {
         overflow: auto;
+    }
+}
+
+/* ---------- For Wider Screens (Small-Height) ---------- */
+@media (max-height: 700px) {
+    #station {
+        overflow: auto;
+        box-shadow: 0px -5px 10px #cccccc inset;
+    }
+    #footer {
+        margin-bottom: 0;
+        width: 100%;
+        overflow: hidden;
     }
 }
