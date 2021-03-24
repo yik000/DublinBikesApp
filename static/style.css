@@ -52,6 +52,10 @@ select {
     padding: 20px;
 }
 
+#hourly_chart {
+    height: 200px;
+}
+
 /* ---------- Map ---------- */
 #map {
     float: right;
