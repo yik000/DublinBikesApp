@@ -54,7 +54,10 @@ function initMap() {
                 // Open infoWindow and assign to currentInfoWindow
                 infoWindow.open(map, marker);
                 currentInfoWindow = infoWindow;
-        
+
+                // Create Hourly Availability Chart
+                hourlyAvailabilityChart(station.number);
+
             });
     
         });
