@@ -38,6 +38,10 @@ body {
     box-shadow: -5px 0px 10px #cccccc inset;
 }
 
+#station h1 {
+    text-align: center;
+}
+
 #stationSelect {
     padding: 30px;
     width: 100%;
@@ -92,8 +96,8 @@ select {
     }
 }
 
-/* ---------- For Wider Screens (Small-Height) ---------- */
-@media (max-height: 700px) {
+/* ---------- For Smaller Screens (in Height) ---------- */
+@media (max-height: 750px) {
     #station {
         overflow: auto;
         box-shadow: 0px -5px 10px #cccccc inset;
@@ -101,6 +105,13 @@ select {
     #footer {
         margin-bottom: 0;
         width: 100%;
+        overflow: hidden;
+    }
+}
+@media (max-height: 750px) {
+    #header h1 {
+        padding-bottom: 25px;
+        font-size: 19.5px;
         overflow: hidden;
     }
 }
