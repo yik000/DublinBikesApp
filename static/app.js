@@ -70,3 +70,32 @@ function initMap() {
 
 // Call map function
 initMap();
+
+// Create Hourly Availability Chart Function
+function hourlyAvailabilityChart(stationNum) {
+
+    document.getElementById("hourly_chart").innerHTML = "Loading chart...";
+
+    // Generate URL and fetch data
+    url = "/hourlyAvailability/" + stationNum
+    fetch(url).then(response => {
+        return response.json();
+    }).then(data => {
+
+        // Print data to console
+        console.log("availabilityData: ", data);
+
+        // Create chart
+        var chart_data = new google.visualization.DataTable();
+        chart_data.addColumn('number', 'Hour');
+        chart_data.addColumn('number', 'Bikes');
+        chart_data.addColumn('number', 'Stands');
+        data.forEach(row => {
+            chart_data.addRow([ row.hour, row.avg_bikes, row.avg_stands ]);
+        });
+
+        var chart = new google.visualization.ColumnChart(document.getElementById('hourly_chart'));
+        chart.draw(chart_data, options)
+
+    });
+};
