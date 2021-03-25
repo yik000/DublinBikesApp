@@ -1,1 +1,4 @@
 dbinfo.py
+.idea/
+.vscode/
+__pycache__/
