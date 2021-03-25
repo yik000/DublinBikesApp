@@ -58,6 +58,9 @@ function initMap() {
                 // Create Hourly Availability Chart
                 hourlyAvailabilityChart(station.number);
 
+                // Create Daily Availability Chart
+                dailyAvailabilityChart(station.number);
+
             });
     
         });
@@ -212,5 +215,51 @@ function hourlyAvailabilityChart(stationNum) {
         var chart = new google.visualization.ColumnChart(document.getElementById('hourly_chart'));
         chart.draw(chart_data, options)
 
+    });
+};
+
+
+
+// Create Daily Availability Chart Function
+function dailyAvailabilityChart(stationNum) {
+
+    document.getElementById("daily_chart").innerHTML = "Loading chart...";
+
+    // Chart styling options
+    var chartTitle = 'Average Daily Availability for station ' + stationNum;
+    var options = {
+        hAxis: {
+            title: 'Day'
+          },
+          vAxis: {
+            title: 'Available'
+          },
+          colors: ['#a52714', '#097138'],
+          crosshair: {
+            color: '#000',
+            trigger: 'selection'
+          }
+    };
+
+    // Generate URL and fetch data
+    url = "/dailyAvailability/" + stationNum
+    fetch(url).then(response => {
+        return response.json();
+    }).then(data => {
+
+        // Print data to console
+        console.log("DailyavailabilityData: ", data);
+
+        // Create chart
+        var chart_data = new google.visualization.DataTable();
+        chart_data.addColumn('number', 'Day');
+        chart_data.addColumn('number', 'Bikes');
+        chart_data.addColumn('number', 'Stands');
+        data.forEach(row => {
+            chart_data.addRow([ row.day, row.avg_bikes, row.avg_stands]);
+        });
+
+        var chart = new google.visualization.LineChart(document.getElementById('daily_chart'));
+        chart.draw(chart_data, options)
     });
 };
