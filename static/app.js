@@ -1,6 +1,7 @@
 let map;
 
 function initMap() {
+    //attempting to
 
     //Set currentInfoWindow to null
     var currentInfoWindow = null;
@@ -79,7 +80,8 @@ function dropDownStations() {
     }).then(stationData => {
 
         console.log(stationData);
-        let eachStation = "<select name='station' id='selection' onchange='showStation()'>" + "<option>Select a Station</option>";
+        let eachStation = "<select name='station' id='selection' onchange='showStation()' class='select'>" +
+                          "<option>Select a Station</option>";
         //for loop to access stations json
         stationData.forEach(station => {
 
@@ -122,7 +124,7 @@ function showStation() {
         let address = id.options[id.selectedIndex].text;
         let update = new Date(stationInfo.lastUpdate * 1000);
         let stationTable =
-            "<h1>" + address + "</h1>" +
+            "<h2>" + address + "</h2>" +
             "<h3>Status</h3>" +
             "<p>" + stationInfo.status + "</p>" +
             "<h3>Available Bikes</h3>" +
