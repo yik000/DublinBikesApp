@@ -56,6 +56,11 @@ select {
     height: 200px;
 }
 
+
+#daily_chart {
+    height: 200px;
+}
+
 /* ---------- Map ---------- */
 #map {
     float: right;
