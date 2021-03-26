@@ -34,10 +34,12 @@ body {
 
 /* ---------- Station Detail Section ---------- */
 #station {
+    overflow: auto;
     float: left;
     padding: 20px;
     height: 100%;
     width: 20%;
+    /* ---------- Dropdown List ---------- */
     background: #ffffff;
     box-shadow: -5px 0px 10px #cccccc inset;
 }
@@ -77,9 +79,9 @@ body {
     border: 0 none;
 }
 
-
 #hourly_chart {
     height: 200px;
+    margin-bottom: 20px;
 }
 
 
