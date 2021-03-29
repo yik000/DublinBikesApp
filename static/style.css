@@ -54,6 +54,7 @@ body {
     cursor: pointer;
     max-width:  20em;
     letter-spacing: 1.5px;
+    margin-left: 25%;
 }
 
 #selection {
@@ -64,6 +65,7 @@ body {
     padding: 10px;
     text-align: center;
     letter-spacing: 1.5px;
+    margin-bottom: 40px;
 }
 
 /* ---------- Stations Table ---------- */
