@@ -14,6 +14,7 @@ body {
 
 /* ---------- Header ---------- */
 #header {
+    font-size: 20px;
     padding: 20px;
     height: 10%;
     background-color: #63a4ff;
@@ -21,7 +22,6 @@ body {
     text-align: center;
     letter-spacing: 3px;
     color: white;
-    font-size: 20px;
 }
 
 
@@ -49,8 +49,7 @@ body {
 }
 
 #stationSelect {
-    margin-left: 25%;
-    padding: 30px;
+    padding-bottom: 30px;
     width: 100%;
     cursor: pointer;
     max-width:  20em;
@@ -66,8 +65,22 @@ body {
     text-align: center;
     letter-spacing: 1.5px;
 }
-#stationDetails h2 {
-    padding-bottom: 15px;
+
+/* ---------- Stations Table ---------- */
+/* --- Code Structure taken from https://dev.to/dcodeyt/creating-beautiful-html-tables-with-css-428l --- */
+#stationDetails table {
+    width: 100%;
+    margin-left: 5px;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+#stationDetails th {
+    background-color: #63a4ff;
+    color: #ffffff;
 }
 
 .select {
@@ -122,6 +135,7 @@ body {
         overflow: auto;
         box-shadow: 0px -5px 10px #cccccc inset;
     }
+
     #map {
         overflow: auto;
     }
@@ -143,6 +157,5 @@ body {
 }
     #header h1 {
         padding-bottom: 25px;
-        font-size: 19.5px;
         overflow: hidden;
     }
