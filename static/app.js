@@ -110,9 +110,7 @@ function getDetails(stationNum){
 
 
 //displays the chosen station and displays dynamic data
-function showStation() {
-    var id = document.getElementById("selection");
-    var stationNum = id.value;
+function showStation(stationNum) {
 
     //fetch request from availability table
     fetch("/chosen_station").then(response => {
@@ -130,10 +128,9 @@ function showStation() {
 
         //station info
         let stationInfo = station;
-        let address = id.options[id.selectedIndex].text;
         let update = new Date(stationInfo.lastUpdate * 1000);
         let stationTable =
-            "<h2>" + address + "</h2>" +
+            "<h2>" + stationInfo.address + "</h2>" +
             "<h3>Status</h3>" +
             "<p>" + stationInfo.status + "</p>" +
             "<h3>Available Bikes</h3>" +
