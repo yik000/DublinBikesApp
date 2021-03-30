@@ -80,7 +80,7 @@ function dropDownStations() {
     }).then(stationData => {
 
         console.log(stationData);
-        let eachStation = "<select name='station' id='selection' onchange='showStation()' class='select'>" +
+        let eachStation = "<select name='station' id='selection' onchange='getDetails(this.value)' class='select'>" +
                           "<option>Select a Station</option>";
         //for loop to access stations json
         stationData.forEach(station => {
