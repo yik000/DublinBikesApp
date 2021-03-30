@@ -100,6 +100,15 @@ function dropDownStations() {
 //Call dropdownstations function
 dropDownStations();
 
+
+// Details function
+function getDetails(stationNum){
+    showStation(stationNum)
+    hourlyAvailabilityChart(stationNum)
+    // dailyAvailabilityChart(stationNum) ~ !!Placeholder for Cormac's function
+};
+
+
 //displays the chosen station and displays dynamic data
 function showStation() {
     var id = document.getElementById("selection");
