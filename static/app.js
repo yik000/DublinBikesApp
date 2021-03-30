@@ -127,14 +127,18 @@ function showStation() {
         let address = id.options[id.selectedIndex].text;
         let update = new Date(stationInfo.lastUpdate * 1000);
         let stationTable =
-            "<h2>" + address + "</h2>" +
-            "<h3>Status</h3>" +
-            "<p>" + stationInfo.status + "</p>" +
-            "<h3>Available Bikes</h3>" +
-            "<p>" + stationInfo.avail_bikes + "</p>" +
-            "<h3>Available Stands</h3>" +
-            "<p>" + stationInfo.avail_stands + "</p><br>" +
-            "<p>Last Updated: " + update.toUTCString() + "</p>";
+            "<table id='stationTable'>" + "<tr>" +
+            "<th>Address</th>" +
+            "<th>Status</th>" +
+            "<th>Available Bikes</th>" +
+            "<th>Available Stands</th>" +
+            "<th>Last Updated</th>" + "</tr>" + "<tr>" +
+            "<td>" + address + "</td>" +
+            "<td>" + stationInfo.status + "</td>" +
+            "<td>" + stationInfo.avail_bikes + "</td>" +
+            "<td>" + stationInfo.avail_stands + "</td>" +
+            "<td>" + update.toUTCString() + "</td>" +
+            "</tr>" + "</table>";
 
         document.getElementById('stationDetails').innerHTML = stationTable;
 

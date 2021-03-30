@@ -41,6 +41,7 @@ def availability():
     # print(df2)
     return df2.to_json(orient='records')
 
+
 # Retrieve average hourly availability data for selected station
 @app.route("/hourlyAvailability/<int:stationNum>")
 def hourly_availability(stationNum):
@@ -54,6 +55,7 @@ def hourly_availability(stationNum):
         """
     df = pd.read_sql_query(sql, engine)
     return df.to_json(orient='records')
+
 
 #parsing from weather table
 @app.route("/weather_info")
