@@ -8,25 +8,29 @@ body {
     margin: 0;
     padding: 0;
     height: 100%;
-    font-family: Arial;
+    font-family: Helvetica;
 }
+
 
 /* ---------- Header ---------- */
 #header {
     padding: 20px;
     height: 15%;
-    background: linear-gradient(to top right, #88b8fd 0%, #000080 100%);
+    background-color: #63a4ff;
+    background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
     text-align: center;
     letter-spacing: 3px;
     color: white;
     font-size: 20px;
 }
 
+
 /* ---------- Map Container ---------- */
 #mapContainer {
     height: 80%;
     width: 100%;
 }
+
 
 /* ---------- Station Detail Section ---------- */
 #station {
@@ -38,19 +42,41 @@ body {
     box-shadow: -5px 0px 10px #cccccc inset;
 }
 
+#station h1 {
+    text-align: center;
+}
+
 #stationSelect {
+    margin-left: 15px;
     padding: 30px;
     width: 100%;
+    cursor: pointer;
+    max-width:  20em;
+    letter-spacing: 1.5px;
 }
 
-select {
-    width: 100%;
+#selection {
+    background: #ececec;
 }
-
 #stationDetails {
     width: 100%;
-    padding: 20px;
+    padding: 10px;
+    text-align: center;
+    letter-spacing: 1.5px;
 }
+#stationDetails h2 {
+    padding-bottom: 15px;
+}
+
+.select {
+    width: 100%;
+    height: 40px;
+    opacity: 60;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    background: none transparent;
+    border: 0 none;
+}
+
 
 #hourly_chart {
     height: 200px;
@@ -71,6 +97,7 @@ select {
     background-color: #efefef;
 }
 
+
 /* ---------- Footer ---------- */
 #footer {
     display: block;
@@ -82,6 +109,7 @@ select {
     letter-spacing: 1px;
     color: white;
 }
+
 
 /* ---------- For Smaller Screens ---------- */
 @media (max-width: 700px) {
@@ -101,8 +129,10 @@ select {
     }
 }
 
-/* ---------- For Wider Screens (Small-Height) ---------- */
-@media (max-height: 700px) {
+
+/* ---------- For Smaller Screens (in Height) ---------- */
+@media (max-height: 750px) {
+
     #station {
         overflow: auto;
         box-shadow: 0px -5px 10px #cccccc inset;
@@ -113,3 +143,8 @@ select {
         overflow: hidden;
     }
 }
+    #header h1 {
+        padding-bottom: 25px;
+        font-size: 19.5px;
+        overflow: hidden;
+    }
