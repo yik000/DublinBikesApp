@@ -5,7 +5,7 @@ import dbinfo
 import traceback
 import datetime
 
-#dbinfo
+# dbinfo
 user = dbinfo.USER
 password = dbinfo.PASS
 uri = dbinfo.DBURI
@@ -21,7 +21,7 @@ def index():
     return render_template("index.html", mapApiKey=dbinfo.MAPKEY)
 
 
-#parsing from stations table
+# parsing from stations table
 @app.route("/stations")
 def location():
     engine = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
@@ -31,8 +31,7 @@ def location():
     return df.to_json(orient='records')
 
 
-
-#parsing from availability table
+# parsing from availability table
 @app.route("/stands")
 def availability():
     engine2 = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
@@ -40,6 +39,7 @@ def availability():
     df2 = pd.read_sql_query(query2, engine2)
     # print(df2)
     return df2.to_json(orient='records')
+
 
 # Retrieve average hourly availability data for selected station
 @app.route("/hourlyAvailability/<int:stationNum>")
@@ -55,7 +55,8 @@ def hourly_availability(stationNum):
     df = pd.read_sql_query(sql, engine)
     return df.to_json(orient='records')
 
-#parsing from weather table
+
+# parsing from weather table
 @app.route("/weather_info")
 def weather():
     engine3 = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
@@ -65,13 +66,17 @@ def weather():
     return df3.to_json(orient='records')
 
 
-#parsing from availability table that shows the most recent updated rows from each number
+# parsing from availability table that shows the most recent updated rows from each number
 @app.route("/chosen_station")
 def station():
     engine4 = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
-    query4 = "SELECT number, status, avail_bikes, avail_stands, MAX(last_update) as lastUpdate FROM availability GROUP BY number;"
+    query4 = """
+        SELECT a.number, s.address as address, status, avail_bikes, avail_stands, MAX(last_update) as lastUpdate 
+        FROM availability a, stations s
+        WHERE a.number = s.number
+        GROUP BY a.number;"""
     df4 = pd.read_sql_query(query4, engine4)
-    #print(df4)
+    # print(df4)
     return df4.to_json(orient='records')
 
 
