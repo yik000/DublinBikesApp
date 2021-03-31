@@ -272,29 +272,16 @@ function dailyAvailabilityChart(stationNum) {
    var options = {
        // Title of chart
        title: chartTitle,
-       legend: 'bottom',
-       curveType: 'function',
+       legend: 'top',
        focusTarget: 'category',
 
-       hAxis: {
-           title: 'Day',
-           format: '0.00',
-           viewWindow: {
-               min: [6, 30, 0],
-               max: [20, 30, 0]
-           },
+       hAxis: {  
            textStyle: {
-               fontSize: 14,
+               fontSize: 8,
                color: '#053061',
                bold: true,
-               italic: false
+               italic: false,
            },
-           titleTextStyle: {
-               fontSize: 18,
-               color: '#053061',
-               bold: true,
-               italic: false
-           }
        },
        vAxis: {
            title: 'Number Available',
@@ -335,7 +322,7 @@ function dailyAvailabilityChart(stationNum) {
             chart_data.addRow([ row.day, row.avg_bikes, row.avg_stands]);
         });
 
-        var chart = new google.visualization.ColumnChart(document.getElementById('daily_chart'));
+        var chart = new google.visualization.LineChart(document.getElementById('daily_chart'));
         chart.draw(chart_data, options)
     });
 };
