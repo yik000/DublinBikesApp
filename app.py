@@ -85,9 +85,9 @@ def station(stationNum):
 def daily_availability(stationNum):
     engine5 = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
     query5 = f"""
-        SELECT  avg(avail_bikes) AS 'avg_bikes', avg(avail_stands) AS 'avg_stands', weekday(last_update) AS 'day' FROM availability 
+        SELECT  avg(avail_bikes) AS 'avg_bikes', avg(avail_stands) AS 'avg_stands', dayname(last_update) AS 'day' FROM availability 
         where number = {stationNum} 
-        GROUP BY weekday(last_update) 
+        GROUP BY dayname(last_update) 
         ORDER BY weekday(last_update) ASC;
     """
     df5 = pd.read_sql_query(query5, engine5)
