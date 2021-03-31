@@ -103,6 +103,12 @@ dropDownStations();
 
 // Details function
 function getDetails(stationNum){
+
+    // Empty divs and print loading message
+    document.getElementById('stationDetails').innerHTML = "Loading details...";
+    document.getElementById('hourly_chart').innerHTML = "";
+
+    // Call all details functions
     showStation(stationNum)
     hourlyAvailabilityChart(stationNum)
     // dailyAvailabilityChart(stationNum) ~ !!Placeholder for Cormac's function
@@ -145,8 +151,6 @@ function showStation(stationNum) {
 
 // Create Hourly Availability Chart Function
 function hourlyAvailabilityChart(stationNum) {
-
-    document.getElementById("hourly_chart").innerHTML = "Loading chart...";
 
     // Chart styling options
     var chartTitle = 'Average Hourly Availability for station ' + stationNum;
