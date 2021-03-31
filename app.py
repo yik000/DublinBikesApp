@@ -67,13 +67,13 @@ def weather():
 
 
 # parsing from availability table that shows the most recent updated rows from each number
-@app.route("/chosen_station")
-def station():
+@app.route("/chosen_station/<int:stationNum>")
+def station(stationNum):
     engine4 = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
-    query4 = """
+    query4 = f"""
         SELECT a.number, s.address as address, status, avail_bikes, avail_stands, MAX(last_update) as lastUpdate 
         FROM availability a, stations s
-        WHERE a.number = s.number
+        WHERE a.number = {stationNum} AND a.number = s.number
         GROUP BY a.number;"""
     df4 = pd.read_sql_query(query4, engine4)
     # print(df4)
