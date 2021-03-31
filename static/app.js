@@ -59,6 +59,9 @@ function initMap() {
                 // Call getDetails
                 getDetails(station.number);
 
+                // Create Daily Availability Chart
+                dailyAvailabilityChart(station.number);
+
             });
     
         });
@@ -107,11 +110,12 @@ function getDetails(stationNum){
     // Empty divs and print loading message
     document.getElementById('stationDetails').innerHTML = "Loading details...";
     document.getElementById('hourly_chart').innerHTML = "";
+    document.getElementById('daily_chart').innerHTML = "";
 
     // Call all details functions
     showStation(stationNum)
     hourlyAvailabilityChart(stationNum)
-    // dailyAvailabilityChart(stationNum) ~ !!Placeholder for Cormac's function
+    dailyAvailabilityChart(stationNum)
 };
 
 
@@ -133,14 +137,18 @@ function showStation(stationNum) {
         // Create station info table
         let update = new Date(stationInfo.lastUpdate);
         let stationTable =
-            "<h2>" + stationInfo.address + "</h2>" +
-            "<h3>Status</h3>" +
-            "<p>" + stationInfo.status + "</p>" +
-            "<h3>Available Bikes</h3>" +
-            "<p>" + stationInfo.avail_bikes + "</p>" +
-            "<h3>Available Stands</h3>" +
-            "<p>" + stationInfo.avail_stands + "</p><br>" +
-            "<p>Last Updated: " + update.toLocaleString() + "</p>";
+            "<table id='stationTable'>" + "<tr>" +
+            "<th>Address</th>" +
+            "<th>Status</th>" +
+            "<th>Available Bikes</th>" +
+            "<th>Available Stands</th>" +
+            "<th>Last Updated</th>" + "</tr>" + "<tr>" +
+            "<td>" + stationInfo.address + "</td>" +
+            "<td>" + stationInfo.status + "</td>" +
+            "<td>" + stationInfo.avail_bikes + "</td>" +
+            "<td>" + stationInfo.avail_stands + "</td>" +
+            "<td>" + update.toLocaleString() + "</td>" +
+            "</tr>" + "</table>";
 
         document.getElementById('stationDetails').innerHTML = stationTable;
 
@@ -221,5 +229,49 @@ function hourlyAvailabilityChart(stationNum) {
         var chart = new google.visualization.ColumnChart(document.getElementById('hourly_chart'));
         chart.draw(chart_data, options)
 
+    });
+};
+
+
+
+// Create Daily Availability Chart Function
+function dailyAvailabilityChart(stationNum) {
+
+    // Chart styling options
+    var chartTitle = 'Average Daily Availability for station ' + stationNum;
+    var options = {
+        hAxis: {
+            title: 'Day'
+          },
+          vAxis: {
+            title: 'Available'
+          },
+          colors: ['#a52714', '#097138'],
+          crosshair: {
+            color: '#000',
+            trigger: 'selection'
+          }
+    };
+
+    // Generate URL and fetch data
+    url = "/dailyAvailability/" + stationNum
+    fetch(url).then(response => {
+        return response.json();
+    }).then(data => {
+
+        // Print data to console
+        console.log("DailyavailabilityData: ", data);
+
+        // Create chart
+        var chart_data = new google.visualization.DataTable();
+        chart_data.addColumn('number', 'Day');
+        chart_data.addColumn('number', 'Bikes');
+        chart_data.addColumn('number', 'Stands');
+        data.forEach(row => {
+            chart_data.addRow([ row.day, row.avg_bikes, row.avg_stands]);
+        });
+
+        var chart = new google.visualization.LineChart(document.getElementById('daily_chart'));
+        chart.draw(chart_data, options)
     });
 };

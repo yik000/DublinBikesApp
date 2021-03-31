@@ -80,5 +80,19 @@ def station(stationNum):
     return df4.to_json(orient='records')
 
 
+#Retrieve the average availability for each day of the week for selected station
+@app.route("/dailyAvailability/<int:stationNum>")
+def daily_availability(stationNum):
+    engine5 = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
+    query5 = f"""
+        SELECT  avg(avail_bikes) AS 'avg_bikes', avg(avail_stands) AS 'avg_stands', weekday(last_update) AS 'day' FROM availability 
+        where number = {stationNum} 
+        GROUP BY weekday(last_update) 
+        ORDER BY weekday(last_update) ASC;
+    """
+    df5 = pd.read_sql_query(query5, engine5)
+    return df5.to_json(orient='records')
+
+
 if __name__ == "__main__":
     app.run(debug=True, port=5000)
