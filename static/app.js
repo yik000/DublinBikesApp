@@ -56,8 +56,8 @@ function initMap() {
                 infoWindow.open(map, marker);
                 currentInfoWindow = infoWindow;
 
-                // Create Hourly Availability Chart
-                hourlyAvailabilityChart(station.number);
+                // Call getDetails
+                getDetails(station.number);
 
                 // Create Daily Availability Chart
                 dailyAvailabilityChart(station.number);
@@ -83,7 +83,7 @@ function dropDownStations() {
     }).then(stationData => {
 
         console.log(stationData);
-        let eachStation = "<select name='station' id='selection' onchange='showStation()' class='select'>" +
+        let eachStation = "<select name='station' id='selection' onchange='getDetails(this.value)' class='select'>" +
                           "<option>Select a Station</option>";
         //for loop to access stations json
         stationData.forEach(station => {
@@ -103,29 +103,39 @@ function dropDownStations() {
 //Call dropdownstations function
 dropDownStations();
 
+
+// Details function
+function getDetails(stationNum){
+
+    // Empty divs and print loading message
+    document.getElementById('stationDetails').innerHTML = "Loading details...";
+    document.getElementById('hourly_chart').innerHTML = "";
+    document.getElementById('daily_chart').innerHTML = "";
+
+    // Call all details functions
+    showStation(stationNum)
+    hourlyAvailabilityChart(stationNum)
+    dailyAvailabilityChart(stationNum)
+};
+
+
 //displays the chosen station and displays dynamic data
-function showStation() {
-    var id = document.getElementById("selection");
-    var stationNum = id.value;
+function showStation(stationNum) {
 
-    //fetch request from availability table
-    fetch("/chosen_station").then(response => {
+    // Generate URL and fetch request from availability table
+    url = "/chosen_station/" + stationNum;
+    fetch(url).then(response => {
         return response.json();
-    }).then(standData => {
+    }).then(responseData => {
 
-        //forEach to go through each row and filter through it based on the value chosen
-        let station;
-        standData.forEach(stand => {
-            if (stationNum == stand.number) {
-                station = stand;
-                console.log(station);
-            }
-        })
+        // Extract station info -> first (only) item in the response list
+        let stationInfo = responseData[0];
 
-        //station info
-        let stationInfo = station;
-        let address = id.options[id.selectedIndex].text;
-        let update = new Date(stationInfo.lastUpdate * 1000);
+        // Print data to console
+        console.log("station" + stationNum + "_LastAvailability: ", stationInfo);
+
+        // Create station info table
+        let update = new Date(stationInfo.lastUpdate);
         let stationTable =
             "<table id='stationTable'>" + "<tr>" +
             "<th>Address</th>" +
@@ -133,11 +143,11 @@ function showStation() {
             "<th>Available Bikes</th>" +
             "<th>Available Stands</th>" +
             "<th>Last Updated</th>" + "</tr>" + "<tr>" +
-            "<td>" + address + "</td>" +
+            "<td>" + stationInfo.address + "</td>" +
             "<td>" + stationInfo.status + "</td>" +
             "<td>" + stationInfo.avail_bikes + "</td>" +
             "<td>" + stationInfo.avail_stands + "</td>" +
-            "<td>" + update.toUTCString() + "</td>" +
+            "<td>" + update.toLocaleString() + "</td>" +
             "</tr>" + "</table>";
 
         document.getElementById('stationDetails').innerHTML = stationTable;
@@ -149,8 +159,6 @@ function showStation() {
 
 // Create Hourly Availability Chart Function
 function hourlyAvailabilityChart(stationNum) {
-
-    document.getElementById("hourly_chart").innerHTML = "Loading chart...";
 
     // Chart styling options
     var chartTitle = 'Average Hourly Availability for station ' + stationNum;
@@ -207,7 +215,7 @@ function hourlyAvailabilityChart(stationNum) {
     }).then(data => {
 
         // Print data to console
-        console.log("availabilityData: ", data);
+        console.log("station" + stationNum + "_hourlyAvailabilityData: ", data);
 
         // Create chart
         var chart_data = new google.visualization.DataTable();
@@ -228,8 +236,6 @@ function hourlyAvailabilityChart(stationNum) {
 
 // Create Daily Availability Chart Function
 function dailyAvailabilityChart(stationNum) {
-
-    document.getElementById("daily_chart").innerHTML = "Loading chart...";
 
     // Chart styling options
     var chartTitle = 'Average Daily Availability for station ' + stationNum;
