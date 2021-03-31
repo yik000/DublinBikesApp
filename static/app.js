@@ -112,23 +112,20 @@ function getDetails(stationNum){
 //displays the chosen station and displays dynamic data
 function showStation(stationNum) {
 
-    //fetch request from availability table
-    fetch("/chosen_station").then(response => {
+    // Generate URL and fetch request from availability table
+    url = "/chosen_station/" + stationNum;
+    fetch(url).then(response => {
         return response.json();
-    }).then(standData => {
+    }).then(responseData => {
 
-        //forEach to go through each row and filter through it based on the value chosen
-        let station;
-        standData.forEach(stand => {
-            if (stationNum == stand.number) {
-                station = stand;
-                console.log(station);
-            }
-        })
+        // Extract station info -> first (only) item in the response list
+        let stationInfo = responseData[0];
 
-        //station info
-        let stationInfo = station;
-        let update = new Date(stationInfo.lastUpdate * 1000);
+        // Print data to console
+        console.log("station" + stationNum + "_LastAvailability: ", stationInfo);
+
+        // Create station info table
+        let update = new Date(stationInfo.lastUpdate);
         let stationTable =
             "<h2>" + stationInfo.address + "</h2>" +
             "<h3>Status</h3>" +
@@ -137,7 +134,7 @@ function showStation(stationNum) {
             "<p>" + stationInfo.avail_bikes + "</p>" +
             "<h3>Available Stands</h3>" +
             "<p>" + stationInfo.avail_stands + "</p><br>" +
-            "<p>Last Updated: " + update.toUTCString() + "</p>";
+            "<p>Last Updated: " + update.toLocaleString() + "</p>";
 
         document.getElementById('stationDetails').innerHTML = stationTable;
 
@@ -206,7 +203,7 @@ function hourlyAvailabilityChart(stationNum) {
     }).then(data => {
 
         // Print data to console
-        console.log("availabilityData: ", data);
+        console.log("station" + stationNum + "_hourlyAvailabilityData: ", data);
 
         // Create chart
         var chart_data = new google.visualization.DataTable();
