@@ -12,7 +12,7 @@ function initMap() {
     }).then(data => {
 
         // Print data to console
-        console.log("data: ", data);
+        console.log("stationData: ", data);
 
         // Create Map
         map = new google.maps.Map(document.getElementById("map"), {
