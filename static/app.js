@@ -260,7 +260,7 @@ function dailyAvailabilityChart(stationNum) {
     }).then(data => {
 
         // Print data to console
-        console.log("DailyavailabilityData: ", data);
+        console.log("station" + stationNum + "_dailyAvailabilityData: ", data);
 
         // Create chart
         var chart_data = new google.visualization.DataTable();
