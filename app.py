@@ -25,7 +25,19 @@ def index():
 @app.route("/stations")
 def location():
     engine = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
-    query = "select number, name, address, stands, banking, position_lat, position_long from stations;"
+    query = """
+        SELECT DISTINCT s.*, a1.avail_stands, a1.avail_bikes, a1.last_update
+        FROM stations s, availability a1
+        INNER JOIN
+            (
+            SELECT number, max(last_update) as last_update
+            FROM availability 
+            GROUP BY number
+            ) a2
+            ON a1.number = a2.number AND a1.last_update = a2.last_update
+        WHERE s.number = a1.number
+        ORDER BY s.number;
+        """
     df = pd.read_sql_query(query, engine)
     # print(df)
     return df.to_json(orient='records')
