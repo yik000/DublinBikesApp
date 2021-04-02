@@ -14,6 +14,7 @@
         <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
         <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ mapApiKey }}"  async></script>
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
         <script>google.charts.load('current', {packages: ['corechart', 'bar']});</script>
 
     </head>
@@ -45,6 +46,8 @@
                 <!------ Detailed Station Info ------>
                 <div id="stationDetails">Select a station to see details</div>
                 <div id="hourly_chart"></div>
+                <div id="daily_chart"></div>
+                
 
             </div>
     

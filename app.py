@@ -5,7 +5,7 @@ import dbinfo
 import traceback
 import datetime
 
-#dbinfo
+# dbinfo
 user = dbinfo.USER
 password = dbinfo.PASS
 uri = dbinfo.DBURI
@@ -21,18 +21,29 @@ def index():
     return render_template("index.html", mapApiKey=dbinfo.MAPKEY)
 
 
-#parsing from stations table
+# parsing from stations table
 @app.route("/stations")
 def location():
     engine = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
-    query = "select number, name, address, stands, banking, position_lat, position_long from stations;"
+    query = """
+        SELECT DISTINCT s.*, a1.avail_stands, a1.avail_bikes, a1.last_update
+        FROM stations s, availability a1
+        INNER JOIN
+            (
+            SELECT number, max(last_update) as last_update
+            FROM availability 
+            GROUP BY number
+            ) a2
+            ON a1.number = a2.number AND a1.last_update = a2.last_update
+        WHERE s.number = a1.number
+        ORDER BY s.number;
+        """
     df = pd.read_sql_query(query, engine)
     # print(df)
     return df.to_json(orient='records')
 
 
-
-#parsing from availability table
+# parsing from availability table
 @app.route("/stands")
 def availability():
     engine2 = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
@@ -57,7 +68,7 @@ def hourly_availability(stationNum):
     return df.to_json(orient='records')
 
 
-#parsing from weather table
+# parsing from weather table
 @app.route("/weather_info")
 def weather():
     engine3 = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
@@ -67,14 +78,32 @@ def weather():
     return df3.to_json(orient='records')
 
 
-#parsing from availability table that shows the most recent updated rows from each number
-@app.route("/chosen_station")
-def station():
+# parsing from availability table that shows the most recent updated rows from each number
+@app.route("/chosen_station/<int:stationNum>")
+def station(stationNum):
     engine4 = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
-    query4 = "SELECT number, status, avail_bikes, avail_stands, MAX(last_update) as lastUpdate FROM availability GROUP BY number;"
+    query4 = f"""
+        SELECT a.number, s.address as address, status, avail_bikes, avail_stands, MAX(last_update) as lastUpdate 
+        FROM availability a, stations s
+        WHERE a.number = {stationNum} AND a.number = s.number
+        GROUP BY a.number;"""
     df4 = pd.read_sql_query(query4, engine4)
-    #print(df4)
+    # print(df4)
     return df4.to_json(orient='records')
+
+
+#Retrieve the average availability for each day of the week for selected station
+@app.route("/dailyAvailability/<int:stationNum>")
+def daily_availability(stationNum):
+    engine5 = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
+    query5 = f"""
+        SELECT  avg(avail_bikes) AS 'avg_bikes', avg(avail_stands) AS 'avg_stands', dayname(last_update) AS 'day' FROM availability 
+        where number = {stationNum} 
+        GROUP BY dayname(last_update) 
+        ORDER BY weekday(last_update) ASC;
+    """
+    df5 = pd.read_sql_query(query5, engine5)
+    return df5.to_json(orient='records')
 
 
 if __name__ == "__main__":
