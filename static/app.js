@@ -1,4 +1,6 @@
-let map, infoWindow;
+//      <----------------------------- Map ----------------------------->
+
+let map, infoWindow, colorMarkerBike, colorMarkerStand;
 
 function initMap() {
     //attempting to
@@ -50,8 +52,9 @@ function initMap() {
                 // Create infoWindow for station marker
                 var infoWindow = new google.maps.InfoWindow({
                     content:'<h3> ' + station.name + '</h3><b>Stands: </b>' + station.stands + '<br><b>Banking: </b>' + banking
+                    + '<br><b>Available Bikes: </b>' + station.avail_bikes + '<br><b>Available Stands: </b>' + station.avail_stands
                 });
-            
+
                 // Open infoWindow and assign to currentInfoWindow
                 infoWindow.open(map, marker);
                 currentInfoWindow = infoWindow;
@@ -63,9 +66,68 @@ function initMap() {
                 dailyAvailabilityChart(station.number);
 
             });
-    
+
+            //Adding a colour marker on each station that has available bikes - green for > 0
+            if (station.avail_bikes > 0) {
+                colorMarkerBike = new google.maps.Circle({
+                    strokeColor: "#00D100",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: "#00D100",
+                    fillOpacity: 0.35,
+                    map: map,
+                    center: new google.maps.LatLng(station.position_lat, station.position_long),
+                    radius: 50,
+                });
+            }
+
+            //Adding a colour marker on each station that has no available bikes - red for == 0
+            if (station.avail_bikes == 0) {
+                colorMarkerBike = new google.maps.Circle({
+                    strokeColor: "#B20000",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: "#B20000",
+                    fillOpacity: 0.35,
+                    map: map,
+                    center: new google.maps.LatLng(station.position_lat, station.position_long),
+                    radius: 50,
+                });
+            }
+
+            //Adding a colour marker on each station that available stands - green for > 0
+            if (station.avail_stands > 0) {
+                //console.log(station.number);
+                colorMarkerStand = new google.maps.Circle({
+                    strokeColor: "#00A300",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: "#00A300",
+                    fillOpacity: 0.35,
+                    map: map,
+                    center: new google.maps.LatLng(station.position_lat, station.position_long),
+                    radius: 60,
+                });
+            }
+
+            //Adding a colour marker on each station that no available stands - red if == 0
+            if (station.avail_stands > 0) {
+                //console.log(station.number);
+                colorMarkerStand = new google.maps.Circle({
+                    strokeColor: "#ED0000",
+                    strokeOpacity: 0.8,
+                    strokeWeight: 2,
+                    fillColor: "#ED0000",
+                    fillOpacity: 0.35,
+                    map: map,
+                    center: new google.maps.LatLng(station.position_lat, station.position_long),
+                    radius: 60,
+                });
+            }
+
         });
 
+      
         // Add Geolocation services
         infoWindow = new google.maps.InfoWindow();
         const locationButton = document.createElement("button");
@@ -73,6 +135,7 @@ function initMap() {
         locationButton.classList.add("custom-map-control-button");
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
         locationButton.addEventListener("click", () => {
+
           // Try HTML5 geolocation
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
@@ -104,6 +167,9 @@ function initMap() {
 
 // Call map function
 initMap();
+
+
+//      <----------------------------- Station-Details (aside) ----------------------------->
 
 //initialising function for drop down menu for stations
 function dropDownStations() {
@@ -263,7 +329,6 @@ function hourlyAvailabilityChart(stationNum) {
 };
 
 
-
 // Create Daily Availability Chart Function
 function dailyAvailabilityChart(stationNum) {
 
@@ -325,4 +390,4 @@ function dailyAvailabilityChart(stationNum) {
         var chart = new google.visualization.LineChart(document.getElementById('daily_chart'));
         chart.draw(chart_data, options)
     });
-};
+
