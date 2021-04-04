@@ -62,9 +62,6 @@ function initMap() {
                 // Call getDetails
                 getDetails(station.number);
 
-                // Create Daily Availability Chart
-                dailyAvailabilityChart(station.number);
-
             });
 
             //Adding a colour marker on each station that has available bikes - green for > 0
