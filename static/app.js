@@ -111,7 +111,7 @@ function initMap() {
             }
 
             //Adding a colour marker on each station that no available stands - red if == 0
-            if (station.avail_stands > 0) {
+            if (station.avail_stands == 0) {
                 //console.log(station.number);
                 colorMarkerStand = new google.maps.Circle({
                     strokeColor: "#ED0000",
@@ -163,6 +163,16 @@ function initMap() {
         console.log("Oops!", err);
     })
 
+
+    //creating the current weather info and putting it on the map
+    fetch("/weather_info").then(response => {
+        return response.json();
+    }).then(data => {
+        console.log(data[0]);
+
+    }).catch(err => {
+        console.log("Oops!", err);
+    })
 }
 
 // Call map function
@@ -332,42 +342,42 @@ function hourlyAvailabilityChart(stationNum) {
 // Create Daily Availability Chart Function
 function dailyAvailabilityChart(stationNum) {
 
-   // Chart styling options
-   var chartTitle = 'Average Daily Availability for station ' + stationNum;
-   var options = {
-       // Title of chart
-       title: chartTitle,
-       legend: 'top',
-       focusTarget: 'category',
+    // Chart styling options
+    var chartTitle = 'Average Daily Availability for station ' + stationNum;
+    var options = {
+        // Title of chart
+        title: chartTitle,
+        legend: 'top',
+        focusTarget: 'category',
 
-       hAxis: {  
-           textStyle: {
-               fontSize: 8,
-               color: '#053061',
-               bold: true,
-               italic: false,
-           },
-       },
-       vAxis: {
-           title: 'Number Available',
-           viewWindow: {
-               min: [0]
-           },
-           format: '0',
-           textStyle: {
-               fontSize: 18,
-               color: '#67001f',
-               bold: false,
-               italic: false
-           },
-           titleTextStyle: {
-               fontSize: 18,
-               color: '#67001f',
-               bold: true,
-               italic: false
-           }
-       }
-   };
+        hAxis: {
+            textStyle: {
+                fontSize: 8,
+                color: '#053061',
+                bold: true,
+                italic: false,
+            },
+        },
+        vAxis: {
+            title: 'Number Available',
+            viewWindow: {
+                min: [0]
+            },
+            format: '0',
+            textStyle: {
+                fontSize: 18,
+                color: '#67001f',
+                bold: false,
+                italic: false
+            },
+            titleTextStyle: {
+                fontSize: 18,
+                color: '#67001f',
+                bold: true,
+                italic: false
+            }
+        }
+    };
 
     // Generate URL and fetch data
     url = "/dailyAvailability/" + stationNum
@@ -384,10 +394,11 @@ function dailyAvailabilityChart(stationNum) {
         chart_data.addColumn('number', 'Bikes');
         chart_data.addColumn('number', 'Stands');
         data.forEach(row => {
-            chart_data.addRow([ row.day, row.avg_bikes, row.avg_stands]);
+            chart_data.addRow([row.day, row.avg_bikes, row.avg_stands]);
         });
 
         var chart = new google.visualization.LineChart(document.getElementById('daily_chart'));
         chart.draw(chart_data, options)
     });
+}
 
