@@ -391,3 +391,4 @@ function dailyAvailabilityChart(stationNum) {
         chart.draw(chart_data, options)
     });
 
+};
