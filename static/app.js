@@ -3,10 +3,18 @@
 let map, infoWindow, colorMarkerBike, colorMarkerStand;
 
 function initMap() {
-    //attempting to
+
+    //Set current time, nightTime and dayTime hours
+    let currentTime = new Date();
+    let nightTime = new Date();
+    nightTime.setHours(20, 0, 0);
+    let dayTime = new Date();
+    dayTime.setDate(dayTime.getDate() + 1);
+    dayTime.setHours(6, 50, 0)
 
     //Set currentInfoWindow to null
     var currentInfoWindow = null;
+
 
     // Fetch station data
     fetch("/stations").then(response => {
@@ -16,11 +24,101 @@ function initMap() {
         // Print data to console
         console.log("stationData: ", data);
 
-        // Create Map
-        map = new google.maps.Map(document.getElementById("map"), {
-            center: { lat: 53.349804, lng: -6.260310 },
-            zoom: 14,
-        });
+        // Create Map in night mode between 7:30pm and 6:50am
+        if (currentTime >= nightTime && currentTime < dayTime ) {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 53.349804, lng: -6.260310 },
+                zoom: 14,
+                styles: [
+                    { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
+                    { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
+                    { elementType: "labels.text.fill", stylers: [{ color: "#746855" }] },
+                    {
+                        featureType: "administrative.locality",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#d59563" }],
+                    },
+                    {
+                        featureType: "poi",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#d59563" }],
+                    },
+                    {
+                        featureType: "poi.park",
+                        elementType: "geometry",
+                        stylers: [{ color: "#263c3f" }],
+                    },
+                    {
+                        featureType: "poi.park",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#6b9a76" }],
+                    },
+                    {
+                        featureType: "road",
+                        elementType: "geometry",
+                        stylers: [{ color: "#38414e" }],
+                    },
+                    {
+                        featureType: "road",
+                        elementType: "geometry.stroke",
+                        stylers: [{ color: "#212a37" }],
+                    },
+                    {
+                        featureType: "road",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#9ca5b3" }],
+                    },
+                    {
+                        featureType: "road.highway",
+                        elementType: "geometry",
+                        stylers: [{ color: "#746855" }],
+                    },
+                    {
+                        featureType: "road.highway",
+                        elementType: "geometry.stroke",
+                        stylers: [{ color: "#1f2835" }],
+                    },
+                    {
+                        featureType: "road.highway",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#f3d19c" }],
+                    },
+                    {
+                        featureType: "transit",
+                        elementType: "geometry",
+                        stylers: [{ color: "#2f3948" }],
+                    },
+                    {
+                        featureType: "transit.station",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#d59563" }],
+                    },
+                    {
+                        featureType: "water",
+                        elementType: "geometry",
+                        stylers: [{ color: "#17263c" }],
+                    },
+                    {
+                        featureType: "water",
+                        elementType: "labels.text.fill",
+                        stylers: [{ color: "#515c6d" }],
+                    },
+                    {
+                        featureType: "water",
+                        elementType: "labels.text.stroke",
+                        stylers: [{ color: "#17263c" }],
+                    },
+                ],
+            });
+        }
+
+        //Create Map in daytime anytime before 7pm
+        else {
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: { lat: 53.349804, lng: -6.260310 },
+                zoom: 14,
+            });
+        }
 
         // Close currentInfoWindow on map click
         map.addListener("click", () => {
@@ -97,7 +195,6 @@ function initMap() {
 
             //Adding a colour marker on each station that available stands - green for > 0
             if (station.avail_stands > 0) {
-                //console.log(station.number);
                 colorMarkerStand = new google.maps.Circle({
                     strokeColor: "#00A300",
                     strokeOpacity: 0.8,
@@ -112,7 +209,6 @@ function initMap() {
 
             //Adding a colour marker on each station that no available stands - red if == 0
             if (station.avail_stands == 0) {
-                //console.log(station.number);
                 colorMarkerStand = new google.maps.Circle({
                     strokeColor: "#ED0000",
                     strokeOpacity: 0.8,
@@ -188,7 +284,6 @@ function dropDownStations() {
         return response.json();
     }).then(stationData => {
 
-        console.log(stationData);
         let eachStation = "<select name='station' id='selection' onchange='getDetails(this.value)' class='select'>" +
                           "<option>Select a Station</option>";
         //for loop to access stations json
@@ -401,4 +496,3 @@ function dailyAvailabilityChart(stationNum) {
         chart.draw(chart_data, options)
     });
 }
-
