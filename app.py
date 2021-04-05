@@ -72,7 +72,7 @@ def hourly_availability(stationNum):
 @app.route("/weather_info")
 def weather():
     engine3 = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
-    query3 = "select windspeed, description, main, temp, rainfall, time from weather;"
+    query3 = "SELECT * FROM weather ORDER BY time DESC LIMIT 1;"
     df3 = pd.read_sql_query(query3, engine3)
     # print(df3)
     return df3.to_json(orient='records')
