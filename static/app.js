@@ -23,6 +23,11 @@ function initMap(markerSelection) {
             zoom: 14,
         });
 
+        // Create the DIV to hold the marker buttons and call markerSelector()
+        const markerSelectorDiv = document.createElement("div");
+        markerSelector(markerSelectorDiv, map, markerSelection);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(markerSelectorDiv);
+
         // Close currentInfoWindow on map click
         map.addListener("click", () => {
             if(currentInfoWindow !== null){
