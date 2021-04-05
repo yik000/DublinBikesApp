@@ -2,8 +2,9 @@
 
 let map, infoWindow, colorMarkerBike, colorMarkerStand;
 
-function initMap() {
-    //attempting to
+function initMap(markerSelection) {
+
+    console.log("MarkerSelection: ", markerSelection);
 
     //Set currentInfoWindow to null
     var currentInfoWindow = null;
@@ -21,6 +22,11 @@ function initMap() {
             center: { lat: 53.349804, lng: -6.260310 },
             zoom: 14,
         });
+
+        // Create the DIV to hold the marker buttons and call markerSelector()
+        const markerSelectorDiv = document.createElement("div");
+        markerSelector(markerSelectorDiv, map, markerSelection);
+        map.controls[google.maps.ControlPosition.TOP_LEFT].push(markerSelectorDiv);
 
         // Close currentInfoWindow on map click
         map.addListener("click", () => {
@@ -62,67 +68,157 @@ function initMap() {
                 // Call getDetails
                 getDetails(station.number);
 
-                // Create Daily Availability Chart
-                dailyAvailabilityChart(station.number);
-
             });
 
-            //Adding a colour marker on each station that has available bikes - green for > 0
-            if (station.avail_bikes > 0) {
-                colorMarkerBike = new google.maps.Circle({
-                    strokeColor: "#00D100",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#00D100",
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: new google.maps.LatLng(station.position_lat, station.position_long),
-                    radius: 50,
-                });
-            }
+            // Add colour markers based on selection
+            if (markerSelection == "bikes") {
 
-            //Adding a colour marker on each station that has no available bikes - red for == 0
-            if (station.avail_bikes == 0) {
-                colorMarkerBike = new google.maps.Circle({
-                    strokeColor: "#B20000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#B20000",
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: new google.maps.LatLng(station.position_lat, station.position_long),
-                    radius: 50,
-                });
-            }
+                // Get percent available
+                var percentAvailable = station.avail_bikes / station.stands;
 
-            //Adding a colour marker on each station that available stands - green for > 0
-            if (station.avail_stands > 0) {
-                //console.log(station.number);
-                colorMarkerStand = new google.maps.Circle({
-                    strokeColor: "#00A300",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#00A300",
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: new google.maps.LatLng(station.position_lat, station.position_long),
-                    radius: 60,
-                });
-            }
+                // Create colour marker based on percent available
+                switch (true) {
+                    case percentAvailable > 0.8 && percentAvailable <= 1.0:
+                        colorMarkerBike = new google.maps.Circle({
+                            strokeColor: "#00D100",
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: "#00D100",
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: new google.maps.LatLng(station.position_lat, station.position_long),
+                            radius: 50,
+                        });
+                        break;
 
-            //Adding a colour marker on each station that no available stands - red if == 0
-            if (station.avail_stands == 0) {
-                //console.log(station.number);
-                colorMarkerStand = new google.maps.Circle({
-                    strokeColor: "#ED0000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#ED0000",
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: new google.maps.LatLng(station.position_lat, station.position_long),
-                    radius: 60,
-                });
+                    case percentAvailable > 0.6 && percentAvailable <= 0.8:
+                        colorMarkerBike = new google.maps.Circle({
+                            strokeColor: "#bfe84f",
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: "#bfe84f",
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: new google.maps.LatLng(station.position_lat, station.position_long),
+                            radius: 50,
+                        });
+                        break;
+
+                    case percentAvailable > 0.4 && percentAvailable <= 0.6:
+                        colorMarkerBike = new google.maps.Circle({
+                            strokeColor: "#e6ed13",
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: "#e6ed13",
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: new google.maps.LatLng(station.position_lat, station.position_long),
+                            radius: 50,
+                        });
+                        break;
+
+                    case percentAvailable > 0.2 && percentAvailable <= 0.4:
+                        colorMarkerBike = new google.maps.Circle({
+                            strokeColor: "#eda413",
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: "#eda413",
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: new google.maps.LatLng(station.position_lat, station.position_long),
+                            radius: 50,
+                        });
+                        break;
+
+                    case percentAvailable > 0.0 && percentAvailable <= 0.2:
+                        colorMarkerBike = new google.maps.Circle({
+                            strokeColor: "#B20000",
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: "#B20000",
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: new google.maps.LatLng(station.position_lat, station.position_long),
+                            radius: 50,
+                        });
+                        break;
+
+                }
+
+            } else {
+
+                // Get percent available
+                var percentAvailable = station.avail_stands / station.stands;
+
+                // Create colour marker based on percent available
+                switch (true) {
+                    case percentAvailable > 0.8 && percentAvailable <= 1.0:
+                        colorMarkerBike = new google.maps.Circle({
+                            strokeColor: "#00D100",
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: "#00D100",
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: new google.maps.LatLng(station.position_lat, station.position_long),
+                            radius: 50,
+                        });
+                        break;
+
+                    case percentAvailable > 0.6 && percentAvailable <= 0.8:
+                        colorMarkerBike = new google.maps.Circle({
+                            strokeColor: "#bfe84f",
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: "#bfe84f",
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: new google.maps.LatLng(station.position_lat, station.position_long),
+                            radius: 50,
+                        });
+                        break;
+
+                    case percentAvailable > 0.4 && percentAvailable <= 0.6:
+                        colorMarkerBike = new google.maps.Circle({
+                            strokeColor: "#e6ed13",
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: "#e6ed13",
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: new google.maps.LatLng(station.position_lat, station.position_long),
+                            radius: 50,
+                        });
+                        break;
+
+                    case percentAvailable > 0.2 && percentAvailable <= 0.4:
+                        colorMarkerBike = new google.maps.Circle({
+                            strokeColor: "#eda413",
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: "#eda413",
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: new google.maps.LatLng(station.position_lat, station.position_long),
+                            radius: 50,
+                        });
+                        break;
+
+                    case percentAvailable > 0.0 && percentAvailable <= 0.2:
+                        colorMarkerBike = new google.maps.Circle({
+                            strokeColor: "#B20000",
+                            strokeOpacity: 0.8,
+                            strokeWeight: 2,
+                            fillColor: "#B20000",
+                            fillOpacity: 0.35,
+                            map: map,
+                            center: new google.maps.LatLng(station.position_lat, station.position_long),
+                            radius: 50,
+                        });
+                        break;
+
+                }
+
             }
 
         });
@@ -175,8 +271,68 @@ function initMap() {
     })
 }
 
+
+// markerSelector function to create buttons
+function markerSelector(controlDiv, map, markerSelection){
+
+    // Set CSS for the control border.
+    const controlUI = document.createElement("div");
+    controlUI.style.backgroundColor = "#fff";
+    controlUI.style.border = "2px solid #fff";
+    controlUI.style.borderRadius = "3px";
+    controlUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+    controlUI.style.cursor = "pointer";
+    controlUI.style.marginTop = "8px";
+    controlUI.style.marginLeft = "8px";
+    controlUI.style.marginBottom = "22px";
+    controlUI.style.textAlign = "center";
+    controlUI.title = "Click to recenter the map";
+    controlDiv.appendChild(controlUI);
+
+    // Create bike colour markers button
+    infoWindow = new google.maps.InfoWindow();
+    const bikesButton = document.createElement("button");
+    bikesButton.setAttribute("id", "bikesButton");
+    bikesButton.textContent = "Bikes";
+    bikesButton.classList.add("custom-map-control-button");
+    bikesButton.addEventListener("click", () => {
+
+      document.getElementById("map").innerHTML = "Loading map with bike colour markers..."
+      initMap("bikes");
+
+    });
+
+    // Create stand colour markers button
+    infoWindow = new google.maps.InfoWindow();
+    const standsButton = document.createElement("button");
+    standsButton.setAttribute("id", "standsButton");
+    standsButton.textContent = "Stands";
+    standsButton.classList.add("custom-map-control-button");
+    standsButton.addEventListener("click", () => {
+
+      document.getElementById("map").innerHTML = "Loading map with stand colour markers..."
+      initMap("stands");
+
+    });
+
+    // Add styling for selected button
+    if (markerSelection == "bikes") {
+        bikesButton.style.backgroundColor= "black";
+        bikesButton.style.color= "white";
+    } else {
+        standsButton.style.backgroundColor= "black";
+        standsButton.style.color= "white";
+    }
+
+    // Add buttons
+    controlUI.appendChild(bikesButton);
+    controlUI.appendChild(standsButton);
+
+};
+
+
 // Call map function
-initMap();
+initMap("bikes");
 
 
 //      <----------------------------- Station-Details (aside) ----------------------------->
