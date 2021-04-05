@@ -175,6 +175,66 @@ function initMap(markerSelection) {
 
 }
 
+
+// markerSelector function to create buttons
+function markerSelector(controlDiv, map, markerSelection){
+
+    // Set CSS for the control border.
+    const controlUI = document.createElement("div");
+    controlUI.style.backgroundColor = "#fff";
+    controlUI.style.border = "2px solid #fff";
+    controlUI.style.borderRadius = "3px";
+    controlUI.style.boxShadow = "0 2px 6px rgba(0,0,0,.3)";
+    controlUI.style.cursor = "pointer";
+    controlUI.style.marginTop = "8px";
+    controlUI.style.marginLeft = "8px";
+    controlUI.style.marginBottom = "22px";
+    controlUI.style.textAlign = "center";
+    controlUI.title = "Click to recenter the map";
+    controlDiv.appendChild(controlUI);
+
+    // Create bike colour markers button
+    infoWindow = new google.maps.InfoWindow();
+    const bikesButton = document.createElement("button");
+    bikesButton.setAttribute("id", "bikesButton");
+    bikesButton.textContent = "Bikes";
+    bikesButton.classList.add("custom-map-control-button");
+    bikesButton.addEventListener("click", () => {
+
+      document.getElementById("map").innerHTML = "Loading map with bike colour markers..."
+      initMap("bikes");
+
+    });
+
+    // Create stand colour markers button
+    infoWindow = new google.maps.InfoWindow();
+    const standsButton = document.createElement("button");
+    standsButton.setAttribute("id", "standsButton");
+    standsButton.textContent = "Stands";
+    standsButton.classList.add("custom-map-control-button");
+    standsButton.addEventListener("click", () => {
+
+      document.getElementById("map").innerHTML = "Loading map with stand colour markers..."
+      initMap("stands");
+
+    });
+
+    // Add styling for selected button
+    if (markerSelection == "bikes") {
+        bikesButton.style.backgroundColor= "black";
+        bikesButton.style.color= "white";
+    } else {
+        standsButton.style.backgroundColor= "black";
+        standsButton.style.color= "white";
+    }
+
+    // Add buttons
+    controlUI.appendChild(bikesButton);
+    controlUI.appendChild(standsButton);
+
+};
+
+
 // Call map function
 initMap("bikes");
 
