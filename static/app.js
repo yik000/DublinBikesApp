@@ -2,8 +2,9 @@
 
 let map, infoWindow, colorMarkerBike, colorMarkerStand;
 
-function initMap() {
-    //attempting to
+function initMap(markerSelection) {
+
+    console.log("MarkerSelection: ", markerSelection);
 
     //Set currentInfoWindow to null
     var currentInfoWindow = null;
@@ -163,7 +164,7 @@ function initMap() {
 }
 
 // Call map function
-initMap();
+initMap("bikes");
 
 
 //      <----------------------------- Station-Details (aside) ----------------------------->
