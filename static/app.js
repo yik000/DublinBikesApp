@@ -70,62 +70,69 @@ function initMap(markerSelection) {
 
             });
 
-            //Adding a colour marker on each station that has available bikes - green for > 0
-            if (station.avail_bikes > 0) {
-                colorMarkerBike = new google.maps.Circle({
-                    strokeColor: "#00D100",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#00D100",
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: new google.maps.LatLng(station.position_lat, station.position_long),
-                    radius: 50,
-                });
-            }
+            // Add colour markers based on selection
+            if (markerSelection == "bikes") {
 
-            //Adding a colour marker on each station that has no available bikes - red for == 0
-            if (station.avail_bikes == 0) {
-                colorMarkerBike = new google.maps.Circle({
-                    strokeColor: "#B20000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#B20000",
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: new google.maps.LatLng(station.position_lat, station.position_long),
-                    radius: 50,
-                });
-            }
+                //Adding a colour marker on each station that has available bikes - green for > 0
+                if (station.avail_bikes > 0) {
+                    colorMarkerBike = new google.maps.Circle({
+                        strokeColor: "#00D100",
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: "#00D100",
+                        fillOpacity: 0.35,
+                        map: map,
+                        center: new google.maps.LatLng(station.position_lat, station.position_long),
+                        radius: 50,
+                    });
+                }
 
-            //Adding a colour marker on each station that available stands - green for > 0
-            if (station.avail_stands > 0) {
-                //console.log(station.number);
-                colorMarkerStand = new google.maps.Circle({
-                    strokeColor: "#00A300",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#00A300",
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: new google.maps.LatLng(station.position_lat, station.position_long),
-                    radius: 60,
-                });
-            }
+                //Adding a colour marker on each station that has no available bikes - red for == 0
+                if (station.avail_bikes == 0) {
+                    colorMarkerBike = new google.maps.Circle({
+                        strokeColor: "#B20000",
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: "#B20000",
+                        fillOpacity: 0.35,
+                        map: map,
+                        center: new google.maps.LatLng(station.position_lat, station.position_long),
+                        radius: 50,
+                    });
+                }
 
-            //Adding a colour marker on each station that no available stands - red if == 0
-            if (station.avail_stands > 0) {
-                //console.log(station.number);
-                colorMarkerStand = new google.maps.Circle({
-                    strokeColor: "#ED0000",
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: "#ED0000",
-                    fillOpacity: 0.35,
-                    map: map,
-                    center: new google.maps.LatLng(station.position_lat, station.position_long),
-                    radius: 60,
-                });
+            } else {
+
+                //Adding a colour marker on each station that available stands - green for > 0
+                if (station.avail_stands > 0) {
+                    //console.log(station.number);
+                    colorMarkerStand = new google.maps.Circle({
+                        strokeColor: "#00A300",
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: "#00A300",
+                        fillOpacity: 0.35,
+                        map: map,
+                        center: new google.maps.LatLng(station.position_lat, station.position_long),
+                        radius: 60,
+                    });
+                }
+
+                //Adding a colour marker on each station that no available stands - red if == 0
+                if (station.avail_stands > 0) {
+                    //console.log(station.number);
+                    colorMarkerStand = new google.maps.Circle({
+                        strokeColor: "#ED0000",
+                        strokeOpacity: 0.8,
+                        strokeWeight: 2,
+                        fillColor: "#ED0000",
+                        fillOpacity: 0.35,
+                        map: map,
+                        center: new google.maps.LatLng(station.position_lat, station.position_long),
+                        radius: 60,
+                    });
+                }
+
             }
 
         });
