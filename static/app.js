@@ -556,6 +556,4 @@ function dailyAvailabilityChart(stationNum) {
         var chart = new google.visualization.LineChart(document.getElementById('daily_chart'));
         chart.draw(chart_data, options)
     });
-}
-
 };
