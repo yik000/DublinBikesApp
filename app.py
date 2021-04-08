@@ -1,4 +1,4 @@
-from flask import Flask, render_template
+from flask import Flask, render_template, request
 from sqlalchemy import create_engine
 import pandas as pd
 import dbinfo
@@ -104,6 +104,17 @@ def daily_availability(stationNum):
     """
     df5 = pd.read_sql_query(query5, engine5)
     return df5.to_json(orient='records')
+
+
+# Get prediction input from user
+@app.route("/predictionInput/<int:stationNum>", methods=['POST'])
+def data(station_num):
+    user_input = request.form.to_dict()
+    user_input['station'] = station_num
+    # E.g. -> user_input = { predict_dt : "2021-04-22T19:34", station: 107 }
+    # Query OWM for forecasted weather in Dublin at this time
+    # pass time, station number, and weather into prediction model
+    #return user_input
 
 
 if __name__ == "__main__":
