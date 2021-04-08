@@ -373,11 +373,16 @@ function getDetails(stationNum){
     document.getElementById('stationDetails').innerHTML = "Loading details...";
     document.getElementById('hourly_chart').innerHTML = "";
     document.getElementById('daily_chart').innerHTML = "";
+    document.getElementById('prediction_input').innerHTML = "";
 
     // Call all details functions
     showStation(stationNum)
     hourlyAvailabilityChart(stationNum)
     dailyAvailabilityChart(stationNum)
+
+    // Generate prediction input form
+    createPredictionForm(stationNum);
+
 };
 
 
