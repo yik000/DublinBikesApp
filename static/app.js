@@ -557,3 +557,34 @@ function dailyAvailabilityChart(stationNum) {
         chart.draw(chart_data, options)
     });
 };
+
+
+// Create form for predicted availability input
+function createPredictionForm(stationNum){
+
+    var form_div = document.getElementById("prediction_input");
+
+    // Create form elements
+    var heading = document.createElement("h2");
+    heading.innerHTML = "Select a date for predicted availability:";
+
+    var form = document.createElement("form");
+    form.setAttribute("action", "/predictionInput/" + stationNum);
+    form.setAttribute("method", "POST");
+
+    var dt_input = document.createElement("input");
+    dt_input.setAttribute("type", "datetime-local");
+    dt_input.setAttribute("id", "predict_dt");
+    dt_input.setAttribute("name", "predict_dt");
+
+    var submit = document.createElement("input");
+    submit.setAttribute("type", "submit");
+    submit.setAttribute("value", "Go!");
+
+    // Append elements to form and form to document
+    form.appendChild(dt_input);
+    form.appendChild(submit);
+    form_div.appendChild(heading);
+    form_div.appendChild(form);
+
+}
