@@ -107,7 +107,7 @@ def daily_availability(stationNum):
 
 
 # Get prediction input from user
-@app.route("/predictionInput/<int:stationNum>", methods=['POST'])
+@app.route("/predictionInput/<int:station_num>", methods=['POST'])
 def data(station_num):
     user_input = request.form.to_dict()
     user_input['station'] = station_num
