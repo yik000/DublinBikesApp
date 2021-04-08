@@ -1,0 +1,198 @@
+/* ---------- Grouped Items ---------- */
+* {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+    height:100%;
+    font-family: Helvetica;
+}
+
+
+/* ---------- Header ---------- */
+#header {
+    font-size: 20px;
+    padding: 20px;
+    height: 10%;
+    background-color: #63a4ff;
+    background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
+    text-align: center;
+    letter-spacing: 3px;
+    color: white;
+}
+
+
+/* ---------- Map Container ---------- */
+#mapContainer {
+    height: 80%;
+    width: 100%;
+}
+
+/* ---------- Map Buttons ---------- */
+#standsButton, #bikesButton {
+    margin: 0;
+}
+
+
+/* ---------- Station Detail Section ---------- */
+#station {
+    overflow: auto;
+    float: left;
+    padding: 20px;
+    height: 100%;
+    width: 35%;
+    /* ---------- Dropdown List ---------- */
+    background: #ffffff;
+    box-shadow: -5px 0px 10px #cccccc inset;
+}
+
+#station h1 {
+    text-align: center;
+}
+
+#stationSelect {
+    padding-bottom: 30px;
+    width: 100%;
+    cursor: pointer;
+    max-width:  20em;
+    letter-spacing: 1.5px;
+    margin-left: 25%;
+}
+
+#selection {
+    background: #ececec;
+}
+#stationDetails {
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    margin-bottom: 80px;
+}
+
+/* ---------- Stations Table ---------- */
+/* --- Code Structure taken from https://dev.to/dcodeyt/creating-beautiful-html-tables-with-css-428l --- */
+#stationDetails table {
+    width: 100%;
+    margin-left: 5px;
+    border-collapse: collapse;
+    font-size: 0.9em;
+    font-family: sans-serif;
+    min-width: 400px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+}
+
+#stationDetails th {
+    background-color: #63a4ff;
+    color: #ffffff;
+}
+
+.select {
+    width: 100%;
+    height: 40px;
+    opacity: 60;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    background: none transparent;
+    border: 0 none;
+}
+
+#hourly_chart {
+    height: 200px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+#daily_chart {
+    height: 200px;
+}
+
+/* ---------- Map ---------- */
+#map {
+    float: right;
+    width: 65%;
+    height: 100%;
+    /* for map loading */
+    padding: 20px;
+    background-color: #efefef;
+}
+
+.custom-map-control-button {
+    appearance: button;
+    background-color: #fff;
+    border: 0;
+    border-radius: 2px;
+    box-shadow: 0 1px 4px -1px rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+    margin: 10px;
+    padding: 0 0.5em;
+    height: 40px;
+    font: 400 18px Roboto, Arial, sans-serif;
+    overflow: hidden;
+  }
+  
+  .custom-map-control-button:hover {
+    background: #ebebeb;
+  }
+
+
+/* ---------- Footer ---------- */
+#footer {
+    display: block;
+    margin: 0 auto;
+    height: 10%;
+    padding: 15px;
+    background: #000000;
+    text-align: center;
+    letter-spacing: 1px;
+    color: white;
+}
+
+
+/* ---------- For Smaller Screens ---------- */
+@media (max-width: 700px) {
+    #header {
+        font-size: 15px;
+    }
+    #station, #map {
+        width: 100%;
+    }
+    #station {
+        height: 20%;
+        overflow: auto;
+        box-shadow: 0px -5px 10px #cccccc inset;
+    }
+
+    #stationSelect {
+        margin-left: 27%;
+        padding-right: 100px;
+    }
+
+    #map {
+        overflow: auto;
+    }
+}
+
+
+/* ---------- For Smaller Screens (in Height) ---------- */
+@media (max-height: 750px) {
+
+    #header h1 {
+        display: none;
+    }
+    #station {
+        overflow: auto;
+        box-shadow: 0px -5px 10px #cccccc inset;
+    }
+    #footer {
+        margin-bottom: 0;
+        width: 100%;
+        overflow: hidden;
+    }
+}
+    #header h1 {
+        padding-bottom: 25px;
+        overflow: hidden;
+    }

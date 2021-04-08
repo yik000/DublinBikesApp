@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <!--====== HEAD ======-->
+    <head>
+
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="author" content="Conor Kiy">
+
+        <title>DublinBikes</title>
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
+        <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key={{ mapApiKey }}"  async></script>
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+        <script>google.charts.load('current', {packages: ['corechart', 'bar']});</script>
+
+    </head>
+
+    <!--====== BODY ======-->
+    <body>
+
+        <!------ Header ------>
+        <header id="header">
+            <h1>Dublin Bikes</h1>
+        </header>
+
+        <!------ Map Container ------>
+        <div id="mapContainer">
+
+            <!------ Station Info ------>
+            <div id="station">
+    
+                <h1>Station Details</h1>
+    
+                <!------ Dropdown Station Selection ------>
+                <div id="stationSelect">
+                    <select name="station" id="selection" class="select">
+                        <option>Select a Station</option>
+                    </select>
+                </div>
+
+
+                <!------ Detailed Station Info ------>
+                <div id="stationDetails">Select a station to see details</div>
+                <div id="hourly_chart"></div>
+                <div id="daily_chart"></div>
+                
+
+            </div>
+    
+            <!------ Map ------>
+            <div id="map">Loading...</div>
+    
+        </div>
+
+        <!------ Footer ------>
+        <footer id="footer">Copyright &copy; 2021 TeamRocket-DublinBikes</footer>
+
+    </body>
+
+</html>
