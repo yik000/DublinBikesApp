@@ -112,7 +112,7 @@ def daily_availability(stationNum):
 def data(station_num):
     user_input = request.form.to_dict()
     user_input['station'] = station_num
-    # E.g. -> user_input = { predict_dt : "2021-04-22T19:34", station: 107 }
+    # E.g. -> user_input = { 'predict_dt' : "2021-04-22T19:34", 'station': 107 }
     # Query OWM for forecasted weather in Dublin at this time and date
     forecastInfo.main_weather(user_input)
     # pass time, station number, and weather into prediction model
