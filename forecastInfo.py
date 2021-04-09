@@ -31,6 +31,5 @@ def main_weather(user_input):
                 weather = result['list'][i]
 
         return weather['weather'][0]['main']
-
     except:
         print(traceback.format_exc())
