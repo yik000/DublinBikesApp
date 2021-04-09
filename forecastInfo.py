@@ -30,7 +30,6 @@ def main_weather(user_input):
             if result['list'][i]['dt'] == final_date:
                 weather = result['list'][i]
 
-        return weather
-
+        return weather['weather'][0]['main']
     except:
         print(traceback.format_exc())
