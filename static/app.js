@@ -2,6 +2,17 @@
 
 let map, infoWindow, colorMarkerBike, colorMarkerStand;
 
+// Map bounds and center point
+const DublinCityBounds = {
+    north: 53.418945,
+    south: 53.224741,
+    east: -5.935707,
+    west: -6.589050,
+};
+const Dublin = { lat: 53.349804, lng: -6.260310 };
+
+
+// Function to create map
 function initMap(markerSelection) {
 
     console.log("MarkerSelection: ", markerSelection);
@@ -29,8 +40,12 @@ function initMap(markerSelection) {
         // Create Map in night mode between 7:30pm and 6:50am
         if (currentTime >= nightTime && currentTime < dayTime ) {
             map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 53.349804, lng: -6.260310 },
+                center: Dublin,
                 zoom: 14,
+                restriction: {
+                    latLngBounds: DublinCityBounds,
+                    strictBounds: true,
+                },
                 styles: [
                     { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
                     { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
@@ -117,8 +132,12 @@ function initMap(markerSelection) {
         //Create Map in daytime anytime before 7pm
         else {
             map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 53.349804, lng: -6.260310 },
+                center: Dublin,
                 zoom: 14,
+                restriction: {
+                    latLngBounds: DublinCityBounds,
+                    strictBounds: true,
+                }
             });
         }
 
