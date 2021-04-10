@@ -359,11 +359,20 @@ function initMap(markerSelection) {
     })
 
 
-    //creating the current weather info and putting it on the map
+    // Fetch last weather update and add to weatherInfo DIV
     fetch("/weather_info").then(response => {
         return response.json();
     }).then(data => {
-        console.log(data[0]);
+
+        weatherData = data[0];
+
+        console.log("lastWeatherUpdate:", weatherData);
+
+        let weather = "";
+        weather += "<h2>" + weatherData['description'] + "</h2>";
+        weather += "<h3>" + weatherData['temp'] + "°</h3>";
+
+        document.getElementById("weatherInfo").innerHTML = weather;
 
     }).catch(err => {
         console.log("Oops!", err);
