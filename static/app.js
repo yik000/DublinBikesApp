@@ -34,8 +34,8 @@ function initMap(markerSelection) {
         console.log("stationData: ", data);
 
         // Create Map in night mode between 8pm and 6am
-        if (hours >= 20 || hours <= 23 || hours <= 6 ) {
-            console.log('here');
+        if (hours >= 20 || hours <= 6 ) {
+            console.log('here', hours);
             map = new google.maps.Map(document.getElementById("map"), {
                 center: Dublin,
                 zoom: 14,
