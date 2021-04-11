@@ -138,6 +138,20 @@ function initMap(markerSelection) {
             });
         }
 
+        // Load direction variables
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRenderer = new google.maps.DirectionsRenderer();
+
+        // Apply directions renderer
+        directionsRenderer.setMap(map);
+
+        // Apply direction function to direction selectors
+        const onChangeHandler = function() {
+            calculateAndDisplayRoute(directionsService, directionsRenderer);
+        };
+        document.getElementById("start").addEventListener("change", onChangeHandler);
+        document.getElementById("end").addEventListener("change", onChangeHandler);
+
         // Create the DIV to hold the marker buttons and call markerSelector()
         const markerSelectorDiv = document.createElement("div");
         markerSelector(markerSelectorDiv, map, markerSelection);
@@ -469,7 +483,7 @@ function dropDownStations() {
     }).then(stationData => {
 
         let eachStation = "<select name='station' id='selection' onchange='getDetails(this.value)' class='select'>" +
-                          "<option>Select a Station</option>";
+                          "<option value=\"\" disabled selected>Select a Station</option>";
         //for loop to access stations json
         stationData.forEach(station => {
 
