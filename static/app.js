@@ -164,7 +164,8 @@ function initMap(markerSelection) {
                 infoWindow.open(map, marker);
                 currentInfoWindow = infoWindow;
 
-                // Call getDetails
+                // Call getDetails and put localStorage variable here
+                localStorage.setItem("stationNumber", station.number);
                 getDetails(station.number);
 
             });
@@ -493,6 +494,9 @@ function showStation(stationNum) {
         return response.json();
     }).then(responseData => {
 
+        //load stationNum into localStorage
+        localStorage.setItem("stationNumber", stationNum);
+
         // Extract station info -> first (only) item in the response list
         let stationInfo = responseData[0];
 
@@ -691,3 +695,13 @@ function createPredictionForm(stationNum){
     form_div.appendChild(form);
 
 };
+//Loads localStorage and loads the saved station info lasted selected, including charts availability.
+window.onload = function() {
+    // Check browser support
+    if (typeof(Storage) !== "undefined") {
+        // Retrieve item
+        let stationNum = localStorage.getItem("stationNumber");
+        //call getDetails()
+        getDetails(stationNum);
+    }
+}
