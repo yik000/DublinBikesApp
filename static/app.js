@@ -726,18 +726,18 @@ function createPredictionForm(stationNum){
 window.onload = function() {
 
     // Check Storage is not empty
-    if (localStorage.getItem("stationNumber") !== "null") {
+    if (localStorage.getItem("stationNumber") == null) {
 
-        // Retrieve item
-        let stationNum = localStorage.getItem("stationNumber");
-        //call getDetails()
-        getDetails(stationNum);
+        document.getElementById('stationDetails').innerHTML = "Select a station to see details";
 
     }
     //Insert a default message for the initial load of the page
     else {
 
-        document.getElementById('stationDetails').innerHTML = "Select a station to see details";
+        // Retrieve item
+        let stationNum = localStorage.getItem("stationNumber");
+        //call getDetails()
+        getDetails(stationNum);
 
     }
 }
