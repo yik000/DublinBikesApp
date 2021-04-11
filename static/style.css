@@ -177,6 +177,42 @@ label {
     height: 200px;
 }
 
+#prediction_input {
+    width: 100%;
+    text-align: center;
+    overflow: auto;
+    display: block;
+    margin: 30px 0;
+}
+
+form {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    overflow: auto;
+}
+
+#predict_dt {
+    width: 70%;
+    padding: 20px;
+    float: left;
+    height: 40px;
+    opacity: 60;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    background: #ececec;
+    border: 0 none;
+}
+
+#prediction_btn {
+    width: 20%;
+    float: right;
+    height: 40px;
+    opacity: 60;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    background: #ececec;
+    border: 0 none;
+}
+
 /* ---------- Map ---------- */
 #map {
     float: right;
