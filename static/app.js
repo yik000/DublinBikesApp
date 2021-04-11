@@ -550,6 +550,7 @@ function showStation(stationNum) {
     })
 }
 
+
 // Create Hourly Availability Chart Function
 function hourlyAvailabilityChart(stationNum) {
 
@@ -719,17 +720,24 @@ function createPredictionForm(stationNum){
     form_div.appendChild(form);
 
 };
+
+
 //Loads localStorage and loads the saved station info lasted selected, including charts availability.
 window.onload = function() {
+
     // Check Storage is not empty
-    if (typeof(Storage) !== "undefined") {
+    if (localStorage.getItem("stationNumber") !== "null") {
+
         // Retrieve item
         let stationNum = localStorage.getItem("stationNumber");
         //call getDetails()
         getDetails(stationNum);
+
     }
     //Insert a default message for the initial load of the page
     else {
+
         document.getElementById('stationDetails').innerHTML = "Select a station to see details";
+
     }
 }
