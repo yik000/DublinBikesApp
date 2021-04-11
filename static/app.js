@@ -19,11 +19,7 @@ function initMap(markerSelection) {
       
     //Set current time, nightTime and dayTime hours
     let currentTime = new Date();
-    let nightTime = new Date();
-    nightTime.setHours(20, 0, 0);
-    let dayTime = new Date();
-    dayTime.setDate(dayTime.getDate() + 1);
-    dayTime.setHours(6, 50, 0)
+    let hours = currentTime.getHours();
 
     //Set currentInfoWindow to null
     var currentInfoWindow = null;
@@ -37,8 +33,9 @@ function initMap(markerSelection) {
         // Print data to console
         console.log("stationData: ", data);
 
-        // Create Map in night mode between 7:30pm and 6:50am
-        if (currentTime >= nightTime && currentTime < dayTime ) {
+        // Create Map in night mode between 8pm and 6am
+        if (hours >= 20 || hours <= 23 || hours <= 6 ) {
+            console.log('here');
             map = new google.maps.Map(document.getElementById("map"), {
                 center: Dublin,
                 zoom: 14,
