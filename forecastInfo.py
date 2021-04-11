@@ -2,12 +2,10 @@ from datetime import datetime
 import traceback
 import json
 import requests
+from DublinBikesApp import dbinfo
 
-# api key info
-city = "Dublin,ie"
-api_key = "bd7d1521214da9913bfd5624b8c3d6d0"
-units = "metric"
-station = f"https://pro.openweathermap.org/data/2.5/forecast/climate?q={city}&appid={api_key}&units={units}"
+
+station = f"https://pro.openweathermap.org/data/2.5/forecast/climate?q={dbinfo.city}&appid={dbinfo.api_key}&units={dbinfo.units}"
 
 
 # asks the api for a forecast based on the selected time of the user
