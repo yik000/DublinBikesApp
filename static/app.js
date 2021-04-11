@@ -164,8 +164,7 @@ function initMap(markerSelection) {
                 infoWindow.open(map, marker);
                 currentInfoWindow = infoWindow;
 
-                // Call getDetails and put localStorage variable here
-                localStorage.setItem("stationNumber", station.number);
+                // Call getDetails
                 getDetails(station.number);
 
             });
@@ -468,6 +467,9 @@ dropDownStations();
 // Details function
 function getDetails(stationNum){
 
+    //Storing stationNum into localStorage
+    localStorage.setItem("stationNumber", stationNum);
+
     // Empty divs and print loading message
     document.getElementById('stationDetails').innerHTML = "Loading details...";
     document.getElementById('hourly_chart').innerHTML = "";
@@ -493,9 +495,6 @@ function showStation(stationNum) {
     fetch(url).then(response => {
         return response.json();
     }).then(responseData => {
-
-        //load stationNum into localStorage
-        localStorage.setItem("stationNumber", stationNum);
 
         // Extract station info -> first (only) item in the response list
         let stationInfo = responseData[0];
@@ -697,11 +696,15 @@ function createPredictionForm(stationNum){
 };
 //Loads localStorage and loads the saved station info lasted selected, including charts availability.
 window.onload = function() {
-    // Check browser support
+    // Check Storage is not empty
     if (typeof(Storage) !== "undefined") {
         // Retrieve item
         let stationNum = localStorage.getItem("stationNumber");
         //call getDetails()
         getDetails(stationNum);
+    }
+    //Insert a default message for the initial load of the page
+    else {
+        document.getElementById('stationDetails').innerHTML = "Select a station to see details";
     }
 }
