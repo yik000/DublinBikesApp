@@ -33,18 +33,35 @@
 
             <!------ Station Info ------>
             <div id="station">
-    
+
+                <!------ Directions Section ------>
+                <h1>Directions</h1>
+                <div id="directions">
+                    <!-- origin selector -->
+                    <div id="label">From: </div>
+                    <select id="start">
+                        <option value="" disabled selected>Select a Station</option>
+                    </select>
+                    <!-- destination selector -->
+                    <div id="label">To: </div>
+                    <select id="end">
+                        <option value="" disabled selected>Select a Station</option>
+                    </select>
+                </div>
+
+                <!------ Details Section ------>
                 <h1>Station Details</h1>
     
                 <!------ Dropdown Station Selection ------>
                 <div id="stationSelect">
                     <select name="station" id="selection" class="select">
-                        <option>Select a Station</option>
+                        <option value="" disabled selected>Select a Station</option>
                     </select>
                 </div>
 
 
                 <!------ Detailed Station Info ------>
+
                 <div id="stationDetails"></div>
                 <div id="hourly_chart"></div>
                 <div id="daily_chart"></div>
