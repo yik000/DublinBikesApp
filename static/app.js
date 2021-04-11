@@ -730,6 +730,7 @@ function createPredictionForm(stationNum){
 
     var submit = document.createElement("input");
     submit.setAttribute("type", "submit");
+    submit.setAttribute("id", "prediction_btn");
     submit.setAttribute("value", "Go!");
 
     // Append elements to form and form to document
