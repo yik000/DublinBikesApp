@@ -225,6 +225,25 @@ label {
         padding: 20px;
         float: left;
     }
+
+    #directions {
+        padding: 0 0 20px 0;
+
+    }
+
+    #start, #end {
+        width: 80%;
+        float: right;
+        margin-bottom: 20px;
+    }
+
+    #label {
+        font-size: 14px;
+        width: 20%;
+        clear: both;
+        text-align: left;
+        padding-right: 5px;
+    }
 }
 
 @media (max-width: 700px) { /* phone size screens */
