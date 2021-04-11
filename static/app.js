@@ -350,6 +350,11 @@ function initMap(markerSelection) {
 
             }
 
+            // Add station options to direction selectors
+            var directionOption = "<option value=\"" + station.position_lat +", " + station.position_long + "\">" + station.address + "</option>";
+            document.getElementById("start").innerHTML += directionOption;
+            document.getElementById("end").innerHTML += directionOption;
+
         });
 
       
