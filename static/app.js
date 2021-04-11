@@ -138,6 +138,20 @@ function initMap(markerSelection) {
             });
         }
 
+        // Load direction variables
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRenderer = new google.maps.DirectionsRenderer();
+
+        // Apply directions renderer
+        directionsRenderer.setMap(map);
+
+        // Apply direction function to direction selectors
+        const onChangeHandler = function() {
+            calculateAndDisplayRoute(directionsService, directionsRenderer);
+        };
+        document.getElementById("start").addEventListener("change", onChangeHandler);
+        document.getElementById("end").addEventListener("change", onChangeHandler);
+
         // Create the DIV to hold the marker buttons and call markerSelector()
         const markerSelectorDiv = document.createElement("div");
         markerSelector(markerSelectorDiv, map, markerSelection);
@@ -336,6 +350,11 @@ function initMap(markerSelection) {
 
             }
 
+            // Add station options to direction selectors
+            var directionOption = "<option value=\"" + station.position_lat +", " + station.position_long + "\">" + station.address + "</option>";
+            document.getElementById("start").innerHTML += directionOption;
+            document.getElementById("end").innerHTML += directionOption;
+
         });
 
       
@@ -469,7 +488,7 @@ function dropDownStations() {
     }).then(stationData => {
 
         let eachStation = "<select name='station' id='selection' onchange='getDetails(this.value)' class='select'>" +
-                          "<option>Select a Station</option>";
+                          "<option value=\"\" disabled selected>Select a Station</option>";
         //for loop to access stations json
         stationData.forEach(station => {
 
@@ -711,6 +730,7 @@ function createPredictionForm(stationNum){
 
     var submit = document.createElement("input");
     submit.setAttribute("type", "submit");
+    submit.setAttribute("id", "prediction_btn");
     submit.setAttribute("value", "Go!");
 
     // Append elements to form and form to document
@@ -741,3 +761,26 @@ window.onload = function() {
 
     }
 }
+
+
+// Directions calculator function
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+    directionsService.route(
+        {
+            origin: {
+                query: document.getElementById("start").value,
+            },
+            destination: {
+                query: document.getElementById("end").value,
+            },
+            travelMode: google.maps.TravelMode.BICYCLING,
+        },
+        (response, status) => {
+            if(status === "OK") {
+                directionsRenderer.setDirections(response);
+            } else {
+                window.alert("Directions request failed due to " + status);
+            }
+        }
+    );
+};

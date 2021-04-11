@@ -72,6 +72,52 @@ body {
 
 #station h1 {
     text-align: center;
+    display: block;
+}
+
+#directions {
+    display: block;
+    clear: both;
+    padding: 20px;
+    padding-top: 0;
+    overflow: auto;
+    margin: 10px auto;
+    width: 100%;
+    cursor: pointer;
+    letter-spacing: 1.5px;
+}
+
+label {
+    float: left;
+    margin-right: 0;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+#label {
+    float: left;
+    margin-right: 0;
+    text-align: right;
+    padding-right: 5px;
+    width: 10%;
+}
+
+#start, #end {
+    height: 40px;
+    opacity: 60;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    background: #ececec;
+    border: 0 none;
+    width: 40%;
+}
+
+#start {
+    float: left;
+}
+
+#end {
+    float: right;
 }
 
 #stationSelect {
@@ -86,6 +132,7 @@ body {
 #selection {
     background: #ececec;
 }
+
 #stationDetails {
     width: 100%;
     padding: 10px;
@@ -115,7 +162,7 @@ body {
     height: 40px;
     opacity: 60;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    background: none transparent;
+    background: #ececec;
     border: 0 none;
 }
 
@@ -128,6 +175,42 @@ body {
 
 #daily_chart {
     height: 200px;
+}
+
+#prediction_input {
+    width: 100%;
+    text-align: center;
+    overflow: auto;
+    display: block;
+    margin: 30px 0;
+}
+
+form {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    overflow: auto;
+}
+
+#predict_dt {
+    width: 70%;
+    padding: 20px;
+    float: left;
+    height: 40px;
+    opacity: 60;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    background: #ececec;
+    border: 0 none;
+}
+
+#prediction_btn {
+    width: 20%;
+    float: right;
+    height: 40px;
+    opacity: 60;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    background: #ececec;
+    border: 0 none;
 }
 
 /* ---------- Map ---------- */
@@ -154,9 +237,9 @@ body {
     overflow: hidden;
   }
   
-  .custom-map-control-button:hover {
+.custom-map-control-button:hover {
     background: #ebebeb;
-  }
+}
 
 
 /* ---------- Footer ---------- */
@@ -177,6 +260,25 @@ body {
     #header h1 {
         padding: 20px;
         float: left;
+    }
+
+    #directions {
+        padding: 0 0 20px 0;
+
+    }
+
+    #start, #end {
+        width: 80%;
+        float: right;
+        margin-bottom: 20px;
+    }
+
+    #label {
+        font-size: 14px;
+        width: 20%;
+        clear: both;
+        text-align: left;
+        padding-right: 5px;
     }
 }
 

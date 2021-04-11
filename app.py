@@ -37,7 +37,7 @@ def location():
             ) a2
             ON a1.number = a2.number AND a1.last_update = a2.last_update
         WHERE s.number = a1.number
-        ORDER BY s.number;
+        ORDER BY s.name ASC;
         """
     df = pd.read_sql_query(query_station, engine_station)
     # print(df)
