@@ -724,7 +724,7 @@ function createPredictionForm(stationNum){
     form.setAttribute("method", "POST");
 
     var dt_input = document.createElement("input");
-    dt_input.setAttribute("type", "datetime-local");
+    dt_input.setAttribute("type", "date");
     dt_input.setAttribute("id", "predict_dt");
     dt_input.setAttribute("name", "predict_dt");
 
