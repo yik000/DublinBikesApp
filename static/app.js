@@ -2,6 +2,17 @@
 
 let map, infoWindow, colorMarkerBike, colorMarkerStand;
 
+// Map bounds and center point
+const DublinCityBounds = {
+    north: 53.418945,
+    south: 53.224741,
+    east: -5.935707,
+    west: -6.589050,
+};
+const Dublin = { lat: 53.349804, lng: -6.260310 };
+
+
+// Function to create map
 function initMap(markerSelection) {
 
     console.log("MarkerSelection: ", markerSelection);
@@ -21,11 +32,15 @@ function initMap(markerSelection) {
         console.log("stationData: ", data);
 
         // Create Map in night mode between 8pm and 6am
-        if (hours >= 20 || hours <= 23 || hours <= 6 ) {
-            console.log('here');
+        if (hours >= 20 || hours <= 6 ) {
+            console.log('here', hours);
             map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 53.349804, lng: -6.260310 },
+                center: Dublin,
                 zoom: 14,
+                restriction: {
+                    latLngBounds: DublinCityBounds,
+                    strictBounds: true,
+                },
                 styles: [
                     { elementType: "geometry", stylers: [{ color: "#242f3e" }] },
                     { elementType: "labels.text.stroke", stylers: [{ color: "#242f3e" }] },
@@ -112,10 +127,28 @@ function initMap(markerSelection) {
         //Create Map in daytime anytime before 7pm
         else {
             map = new google.maps.Map(document.getElementById("map"), {
-                center: { lat: 53.349804, lng: -6.260310 },
+                center: Dublin,
                 zoom: 14,
+                restriction: {
+                    latLngBounds: DublinCityBounds,
+                    strictBounds: true,
+                }
             });
         }
+
+        // Load direction variables
+        const directionsService = new google.maps.DirectionsService();
+        const directionsRenderer = new google.maps.DirectionsRenderer();
+
+        // Apply directions renderer
+        directionsRenderer.setMap(map);
+
+        // Apply direction function to direction selectors
+        const onChangeHandler = function() {
+            calculateAndDisplayRoute(directionsService, directionsRenderer);
+        };
+        document.getElementById("start").addEventListener("change", onChangeHandler);
+        document.getElementById("end").addEventListener("change", onChangeHandler);
 
         // Create the DIV to hold the marker buttons and call markerSelector()
         const markerSelectorDiv = document.createElement("div");
@@ -314,6 +347,11 @@ function initMap(markerSelection) {
 
             }
 
+            // Add station options to direction selectors
+            var directionOption = "<option value=\"" + station.position_lat +", " + station.position_long + "\">" + station.address + "</option>";
+            document.getElementById("start").innerHTML += directionOption;
+            document.getElementById("end").innerHTML += directionOption;
+
         });
 
       
@@ -352,16 +390,20 @@ function initMap(markerSelection) {
         console.log("Oops!", err);
     })
 
-<<<<<<< Updated upstream
-
-    //creating the current weather info and putting it on the map
-=======
     // Fetch last weather update and add to weatherInfo DIV
->>>>>>> Stashed changes
     fetch("/weather_info").then(response => {
         return response.json();
     }).then(data => {
-        console.log(data[0]);
+
+        weatherData = data[0];
+
+        console.log("lastWeatherUpdate:", weatherData);
+
+        let weather = "";
+        weather += "<h2>" + weatherData['description'] + "</h2>";
+        weather += "<h3>" + weatherData['temp'] + "°</h3>";
+
+        document.getElementById("weatherInfo").innerHTML = weather;
 
     }).catch(err => {
         console.log("Oops!", err);
@@ -443,13 +485,9 @@ function dropDownStations() {
     }).then(stationData => {
 
         let eachStation = "<select name='station' id='selection' onchange='getDetails(this.value)' class='select'>" +
-<<<<<<< Updated upstream
-                          "<option>Select a Station</option>";
-        //for loop to access stations json
-=======
                           "<option value=\"\" disabled selected>Select a Station</option>";
-
->>>>>>> Stashed changes
+      
+        //for loop to access stations json
         stationData.forEach(station => {
 
             //Put station number to option value and listing station address
@@ -527,6 +565,7 @@ function showStation(stationNum) {
         console.log("Oops!", err);
     })
 }
+
 
 // Create Hourly Availability Chart Function
 function hourlyAvailabilityChart(stationNum) {
@@ -683,12 +722,13 @@ function createPredictionForm(stationNum){
     form.setAttribute("method", "POST");
 
     var dt_input = document.createElement("input");
-    dt_input.setAttribute("type", "datetime-local");
+    dt_input.setAttribute("type", "date");
     dt_input.setAttribute("id", "predict_dt");
     dt_input.setAttribute("name", "predict_dt");
 
     var submit = document.createElement("input");
     submit.setAttribute("type", "submit");
+    submit.setAttribute("id", "prediction_btn");
     submit.setAttribute("value", "Go!");
 
     // Append elements to form and form to document
@@ -698,37 +738,47 @@ function createPredictionForm(stationNum){
     form_div.appendChild(form);
 
 };
-<<<<<<< Updated upstream
-//Loads localStorage and loads the saved station info lasted selected, including charts availability.
-=======
 
 
 //Loads localStorage and loads the saved station info last selected, including charts availability.
->>>>>>> Stashed changes
 window.onload = function() {
+
     // Check Storage is not empty
-<<<<<<< Updated upstream
-    if (typeof(Storage) !== "undefined") {
-=======
     if (localStorage.getItem("stationNumber") == null) {
 
         document.getElementById('stationDetails').innerHTML = "Select a station to see details";
 
     }
+  
     //Calls getDetails() function if localStorage is not empty
     else {
 
->>>>>>> Stashed changes
         // Retrieve item
         let stationNum = localStorage.getItem("stationNumber");
         //call getDetails()
         getDetails(stationNum);
-<<<<<<< Updated upstream
-    }
-    //Insert a default message for the initial load of the page
-    else {
-        document.getElementById('stationDetails').innerHTML = "Select a station to see details";
-=======
->>>>>>> Stashed changes
     }
 }
+
+
+// Directions calculator function
+function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+    directionsService.route(
+        {
+            origin: {
+                query: document.getElementById("start").value,
+            },
+            destination: {
+                query: document.getElementById("end").value,
+            },
+            travelMode: google.maps.TravelMode.BICYCLING,
+        },
+        (response, status) => {
+            if(status === "OK") {
+                directionsRenderer.setDirections(response);
+            } else {
+                window.alert("Directions request failed due to " + status);
+            }
+        }
+    );
+};

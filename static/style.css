@@ -15,7 +15,6 @@ body {
 /* ---------- Header ---------- */
 #header {
     font-size: 20px;
-    padding: 20px;
     height: 10%;
     background-color: #63a4ff;
     background-image: linear-gradient(315deg, #63a4ff 0%, #83eaf1 74%);
@@ -24,6 +23,28 @@ body {
     color: white;
 }
 
+#header h1 {
+    margin: 0 auto;
+    padding: 25px;
+    padding-left: 300px;
+    display: inline-block;
+}
+
+#weatherInfo {
+    float: right;
+    padding: 12px 20px;
+}
+
+#weatherInfo h2 {
+    text-transform: capitalize;
+    margin: 0;
+    padding: 5px;
+}
+
+#weatherInfo h3 {
+    margin: 0;
+    padding: 5px;
+}
 
 /* ---------- Map Container ---------- */
 #mapContainer {
@@ -51,6 +72,52 @@ body {
 
 #station h1 {
     text-align: center;
+    display: block;
+}
+
+#directions {
+    display: block;
+    clear: both;
+    padding: 20px;
+    padding-top: 0;
+    overflow: auto;
+    margin: 10px auto;
+    width: 100%;
+    cursor: pointer;
+    letter-spacing: 1.5px;
+}
+
+label {
+    float: left;
+    margin-right: 0;
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 5px;
+}
+
+#label {
+    float: left;
+    margin-right: 0;
+    text-align: right;
+    padding-right: 5px;
+    width: 10%;
+}
+
+#start, #end {
+    height: 40px;
+    opacity: 60;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    background: #ececec;
+    border: 0 none;
+    width: 40%;
+}
+
+#start {
+    float: left;
+}
+
+#end {
+    float: right;
 }
 
 #stationSelect {
@@ -65,6 +132,7 @@ body {
 #selection {
     background: #ececec;
 }
+
 #stationDetails {
     width: 100%;
     padding: 10px;
@@ -94,7 +162,7 @@ body {
     height: 40px;
     opacity: 60;
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    background: none transparent;
+    background: #ececec;
     border: 0 none;
 }
 
@@ -107,6 +175,42 @@ body {
 
 #daily_chart {
     height: 200px;
+}
+
+#prediction_input {
+    width: 100%;
+    text-align: center;
+    overflow: auto;
+    display: block;
+    margin: 30px 0;
+}
+
+form {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    overflow: auto;
+}
+
+#predict_dt {
+    width: 70%;
+    padding: 20px;
+    float: left;
+    height: 40px;
+    opacity: 60;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    background: #ececec;
+    border: 0 none;
+}
+
+#prediction_btn {
+    width: 20%;
+    float: right;
+    height: 40px;
+    opacity: 60;
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    background: #ececec;
+    border: 0 none;
 }
 
 /* ---------- Map ---------- */
@@ -133,9 +237,9 @@ body {
     overflow: hidden;
   }
   
-  .custom-map-control-button:hover {
+.custom-map-control-button:hover {
     background: #ebebeb;
-  }
+}
 
 
 /* ---------- Footer ---------- */
@@ -152,13 +256,70 @@ body {
 
 
 /* ---------- For Smaller Screens ---------- */
-@media (max-width: 700px) {
-    #header {
-        font-size: 15px;
+@media (max-width: 950px) { /* ipad size screens */
+    #header h1 {
+        padding: 20px;
+        float: left;
     }
+
+    #directions {
+        padding: 0 0 20px 0;
+
+    }
+
+    #start, #end {
+        width: 80%;
+        float: right;
+        margin-bottom: 20px;
+    }
+
+    #label {
+        font-size: 14px;
+        width: 20%;
+        clear: both;
+        text-align: left;
+        padding-right: 5px;
+    }
+}
+
+@media (max-width: 700px) { /* phone size screens */
+
+    #header h1 {
+        margin: 0;
+        padding: 5px;
+        padding-left: 15px;
+        text-align: left;
+        float: left;
+        font-size: 20px;
+        width: 50%;
+    }
+
+    #weatherInfo {
+        padding: 0px;
+        width: 50%;
+        text-align: right;
+    }
+
+    #weatherInfo h2 {
+        margin: 0;
+        padding: 12px 5px;
+        float: left;
+        width: 70%;
+        font-size: 12px;
+    }
+
+    #weatherInfo h3 {
+        margin: 0;
+        padding: 15px 10px;
+        float: right;
+        width: 30%;
+        font-size: 20px;
+    }
+
     #station, #map {
         width: 100%;
     }
+
     #station {
         height: 20%;
         overflow: auto;
@@ -179,20 +340,14 @@ body {
 /* ---------- For Smaller Screens (in Height) ---------- */
 @media (max-height: 750px) {
 
-    #header h1 {
-        display: none;
-    }
     #station {
         overflow: auto;
         box-shadow: 0px -5px 10px #cccccc inset;
     }
+
     #footer {
         margin-bottom: 0;
         width: 100%;
         overflow: hidden;
     }
 }
-    #header h1 {
-        padding-bottom: 25px;
-        overflow: hidden;
-    }

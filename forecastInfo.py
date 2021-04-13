@@ -25,9 +25,11 @@ def main_weather(user_input):
         final_date = int(datetime_object.timestamp())
 
         # Returning the main weather description
-        weather = {'main': result['list'][i]['weather'][0]['main'] for i in range(len(result['list'])) if result['list'][i]['dt'] == final_date}
+        dictionary_weather = [result['list'][i] for i in range(len(result['list'])) if result['list'][i]['dt'] == final_date]
+        weather = {'temp': dictionary_weather[0]['temp']['day'], 'speed': dictionary_weather[0]['speed'], 'rain': dictionary_weather[0]['rain']}
 
-        return weather['main']
+
+        return weather
 
     except:
         print(traceback.format_exc())
