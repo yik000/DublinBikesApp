@@ -539,8 +539,8 @@ function showStation(stationNum) {
             "<table id='stationTable'>" + "<tr>" +
             "<th>Address</th>" +
             "<th>Status</th>" +
-            "<th>Available Bikes</th>" +
-            "<th>Available Stands</th>" +
+            "<th>Bikes</th>" +
+            "<th>Stands</th>" +
             "<th>Last Updated</th>" + "</tr>" + "<tr>" +
             "<td>" + stationInfo.address + "</td>" +
             "<td>" + stationInfo.status + "</td>" +
