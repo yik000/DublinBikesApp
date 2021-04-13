@@ -39,7 +39,6 @@ def location():
         ORDER BY s.number;
         """
     df = pd.read_sql_query(query_station, engine_station)
-    # print(df)
     return df.to_json(orient='records')
 
 
@@ -48,9 +47,8 @@ def location():
 def availability():
     engine_available = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
     query_available = "select status, last_update, number, avail_stands, avail_bikes from availability;"
-    df2 = pd.read_sql_query(query_available, engine_available)
-    # print(df2)
-    return df2.to_json(orient='records')
+    df_stands = pd.read_sql_query(query_available, engine_available)
+    return df_stands.to_json(orient='records')
 
 
 # Retrieve average hourly availability data for selected station
@@ -64,8 +62,8 @@ def hourly_availability(stationNum):
         GROUP BY hour(last_update)
         ORDER BY hour(last_update) ASC;
         """
-    df = pd.read_sql_query(query_hourly, engine_hourly)
-    return df.to_json(orient='records')
+    df_hourly = pd.read_sql_query(query_hourly, engine_hourly)
+    return df_hourly.to_json(orient='records')
 
 
 # Query to get the most recent forecast from weather table
@@ -73,9 +71,8 @@ def hourly_availability(stationNum):
 def weather():
     engine_cWeather = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
     query_cWeather = "SELECT * FROM weather ORDER BY time DESC LIMIT 1;"
-    df3 = pd.read_sql_query(query_cWeather, engine_cWeather)
-    # print(df3)
-    return df3.to_json(orient='records')
+    df_weather = pd.read_sql_query(query_cWeather, engine_cWeather)
+    return df_weather.to_json(orient='records')
 
 
 # Query from availability table to obtain most recent data from each station
@@ -87,9 +84,8 @@ def station(stationNum):
         FROM availability a, stations s
         WHERE a.number = {stationNum} AND a.number = s.number
         GROUP BY a.number;"""
-    df4 = pd.read_sql_query(query_stationAvail, engine_stationAvail)
-    # print(df4)
-    return df4.to_json(orient='records')
+    df_chosen_station = pd.read_sql_query(query_stationAvail, engine_stationAvail)
+    return df_chosen_station.to_json(orient='records')
 
 
 # Retrieve the average availability for each day of the week for selected station
@@ -102,8 +98,8 @@ def daily_availability(stationNum):
         GROUP BY dayname(last_update) 
         ORDER BY weekday(last_update) ASC;
     """
-    df5 = pd.read_sql_query(query_daily, engine_daily)
-    return df5.to_json(orient='records')
+    df_average = pd.read_sql_query(query_daily, engine_daily)
+    return df_average.to_json(orient='records')
 
 
 # Get prediction input from user
