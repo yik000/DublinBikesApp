@@ -636,7 +636,7 @@ function hourlyAvailabilityChart(stationNum) {
 function dailyAvailabilityChart(stationNum) {
 
     // Chart styling options
-    var chartTitle = 'Average Daily Availability' + stationNum;
+    var chartTitle = 'Average Daily Availability';
     var options = {
         // Title of chart
         title: chartTitle,
