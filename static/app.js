@@ -394,8 +394,7 @@ function initMap(markerSelection) {
         weatherData = data[0];
 
         let weather = "";
-        weather += "<h2>" + weatherData['description'] + "</h2>";
-        weather += "<h3>" + weatherData['temp'] + "°</h3>";
+        weather += "<h2>" + weatherData['description'] + "   " + weatherData['temp'] + "°</h2>";
 
         document.getElementById("weatherInfo").innerHTML = weather;
 
