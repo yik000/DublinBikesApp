@@ -704,26 +704,48 @@ function createPredictionForm(stationNum){
     heading.innerHTML = "Select a date for predicted availability:";
 
     var form = document.createElement("form");
+
+    form.setAttribute("target", "output");
     form.setAttribute("action", "/predictionInput/" + stationNum);
     form.setAttribute("method", "POST");
+    
+    // Create date range for form calendar
+    var today = new Date();
+    day = 864e5;
+    var future = new Date(+today + day * 29);
+
+    today = today.toISOString().slice(0, 10)
+    future = future.toISOString().slice(0, 10)
 
     var dt_input = document.createElement("input");
+
     dt_input.setAttribute("type", "date");
+    dt_input.setAttribute("min", today);
+    dt_input.setAttribute("max", future);
     dt_input.setAttribute("id", "predict_dt");
     dt_input.setAttribute("name", "predict_dt");
-
+    
     var submit = document.createElement("input");
     submit.setAttribute("type", "submit");
-    submit.setAttribute("id", "prediction_btn");
     submit.setAttribute("value", "Go!");
+    submit.setAttribute('onclick', 'showPrediction()');
 
     // Append elements to form and form to document
     form.appendChild(dt_input);
     form.appendChild(submit);
     form_div.appendChild(heading);
     form_div.appendChild(form);
-
+ 
 };
+
+function showPrediction() {
+    var x = document.getElementById("prediction_output");
+    if (x.style.display === "none") {
+      x.style.display = "block";
+    } else {
+      x.style.display = "block";
+    }
+}
 
 
 //Loads localStorage and loads the saved station info last selected, including charts availability.
