@@ -561,13 +561,14 @@ function showStation(stationNum) {
 function hourlyAvailabilityChart(stationNum) {
 
     // Chart styling options
-    var chartTitle = 'Average Hourly Availability for station ' + stationNum;
+    var chartTitle = 'Average Hourly Availability';
     var options = {
 
         // Title of chart
         title: chartTitle,
         legend: 'top',
         focusTarget: 'category',
+        colors: ['#00D9C0', '#EF233C'],
         hAxis: {
             title: 'Hour',
             format: '0.00',
@@ -577,32 +578,32 @@ function hourlyAvailabilityChart(stationNum) {
             },
             textStyle: {
                 fontSize: 14,
-                color: '#053061',
+                color: '#000',
                 bold: true,
                 italic: false
             },
             titleTextStyle: {
-                fontSize: 18,
-                color: '#053061',
+                fontSize: 14,
+                color: '#000',
                 bold: true,
                 italic: false
             }
         },
         vAxis: {
-            title: 'Number Available',
+            title: 'Available',
             viewWindow: {
                 min: [0]
             },
             format: '0',
             textStyle: {
-                fontSize: 18,
-                color: '#67001f',
+                fontSize: 14,
+                color: '#000',
                 bold: false,
                 italic: false
             },
             titleTextStyle: {
-                fontSize: 18,
-                color: '#67001f',
+                fontSize: 14,
+                color: '#000',
                 bold: true,
                 italic: false
             }
@@ -635,36 +636,37 @@ function hourlyAvailabilityChart(stationNum) {
 function dailyAvailabilityChart(stationNum) {
 
     // Chart styling options
-    var chartTitle = 'Average Daily Availability for station ' + stationNum;
+    var chartTitle = 'Average Daily Availability' + stationNum;
     var options = {
         // Title of chart
         title: chartTitle,
         legend: 'top',
         focusTarget: 'category',
+        colors: ['#00D9C0', '#EF233C'],
 
         hAxis: {
             textStyle: {
                 fontSize: 8,
-                color: '#053061',
+                color: '#000',
                 bold: true,
                 italic: false,
             },
         },
         vAxis: {
-            title: 'Number Available',
+            title: 'Available',
             viewWindow: {
                 min: [0]
             },
             format: '0',
             textStyle: {
-                fontSize: 18,
-                color: '#67001f',
+                fontSize: 14,
+                color: '#000',
                 bold: false,
                 italic: false
             },
             titleTextStyle: {
-                fontSize: 18,
-                color: '#67001f',
+                fontSize: 14,
+                color: '#000',
                 bold: true,
                 italic: false
             }
