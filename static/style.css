@@ -46,11 +46,6 @@ body {
     padding: 5px;
 }
 
-#weatherInfo h3 {
-    margin: 0;
-    padding: 5px;
-}
-
 /* ---------- Map Container ---------- */
 #mapContainer {
     height: 80%;
@@ -154,12 +149,11 @@ label {
     font-size: 0.9em;
     font-family: sans-serif;
     min-width: 400px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
 #stationDetails th {
-    background-color: #63a4ff;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #EF233C;
 }
 
 .select {
@@ -193,7 +187,6 @@ label {
 form {
     width: 80%;
     margin: 0 auto;
-    padding: 20px;
     overflow: auto;
 }
 
@@ -216,6 +209,20 @@ form {
     -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
     background: #ececec;
     border: 0 none;
+}
+
+#prediction_output {
+    width: 100%;
+    text-align: center;
+    overflow: auto;
+    display: block;
+}
+
+#output {
+    text-align: center;
+    align-content: center;
+    width: 150px;
+    height: 40px;
 }
 
 /* ---------- Map ---------- */
