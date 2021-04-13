@@ -4,6 +4,11 @@ import pandas as pd
 import dbinfo
 import datetime
 import forecastInfo
+import pickle
+import numpy as np
+from sklearn.linear_model import LinearRegression
+with open('model.pkl', 'rb') as handle:
+ model = pickle.load(handle) 
 
 # dbinfo
 user = dbinfo.USER
@@ -107,11 +112,14 @@ def daily_availability(stationNum):
 def data(station_num):
     user_input = request.form.to_dict()
     user_input['station'] = station_num
-    # E.g. -> user_input = { 'predict_dt' : "2021-04-22T19:34", 'station': 107 }
     # Call forecastInfo to return main description forecast based on selected date
-    forecastInfo.main_weather(user_input)
-    # pass time, station number, and weather into prediction model
-    #return user_input
+    weather = forecastInfo.main_weather(user_input)
+    weather = np.asarray(weather)
+    weather = weather.reshape(1, -1)
+    # pass station number and weather into prediction model
+    result = model[station_num].predict(weather)
+
+    return str(result)[1:-1]
 
 
 if __name__ == "__main__":
