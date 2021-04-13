@@ -24,13 +24,11 @@ function initMap(markerSelection) {
     //Set currentInfoWindow to null
     var currentInfoWindow = null;
 
-
     // Fetch station data
     fetch("/stations").then(response => {
         return response.json();
     }).then(data => {
 
-        // Print data to console
         console.log("stationData: ", data);
 
         // Create Map in night mode between 8pm and 6am
@@ -163,8 +161,7 @@ function initMap(markerSelection) {
                 currentInfoWindow.close();
             }
         });
-        
-        // For each station
+
         data.forEach(station => {
             
             // Create Marker
@@ -173,7 +170,7 @@ function initMap(markerSelection) {
                 map: map,
             });
 
-            // Add onClick() function to station marker
+            // Add eventlistener function to station marker
             marker.addListener("click", () => {
                 
                 // If open close currentInfoWindow
@@ -393,7 +390,6 @@ function initMap(markerSelection) {
         console.log("Oops!", err);
     })
 
-
     // Fetch last weather update and add to weatherInfo DIV
     fetch("/weather_info").then(response => {
         return response.json();
@@ -480,7 +476,8 @@ initMap("bikes");
 
 //      <----------------------------- Station-Details (aside) ----------------------------->
 
-//initialising function for drop down menu for stations
+
+//Initialising function for drop down menu for stations
 function dropDownStations() {
     // Fetch station data
     fetch("/stations").then(response => {
@@ -489,14 +486,14 @@ function dropDownStations() {
 
         let eachStation = "<select name='station' id='selection' onchange='getDetails(this.value)' class='select'>" +
                           "<option value=\"\" disabled selected>Select a Station</option>";
+      
         //for loop to access stations json
         stationData.forEach(station => {
 
-            //input address
+            //Put station number to option value and listing station address
             eachStation += "<option value=" + station.number + ">" + station.address + "</option>";
         })
 
-        //call selection id
         document.getElementById('stationSelect').innerHTML = eachStation;
 
     }).catch(err => {
@@ -504,11 +501,12 @@ function dropDownStations() {
     })
 }
 
+
 //Call dropdownstations function
 dropDownStations();
 
 
-// Details function
+// Details function to display functions when dropdown station/marker is clicked
 function getDetails(stationNum){
 
     //Storing stationNum into localStorage
@@ -527,11 +525,10 @@ function getDetails(stationNum){
 
     // Generate prediction input form
     createPredictionForm(stationNum);
-
 };
 
 
-//displays the chosen station and displays dynamic data
+//Displays the chosen station and displays dynamic data
 function showStation(stationNum) {
 
     // Generate URL and fetch request from availability table
@@ -576,6 +573,7 @@ function hourlyAvailabilityChart(stationNum) {
     // Chart styling options
     var chartTitle = 'Average Hourly Availability for station ' + stationNum;
     var options = {
+
         // Title of chart
         title: chartTitle,
         legend: 'top',
@@ -742,7 +740,7 @@ function createPredictionForm(stationNum){
 };
 
 
-//Loads localStorage and loads the saved station info lasted selected, including charts availability.
+//Loads localStorage and loads the saved station info last selected, including charts availability.
 window.onload = function() {
 
     // Check Storage is not empty
@@ -751,14 +749,14 @@ window.onload = function() {
         document.getElementById('stationDetails').innerHTML = "Select a station to see details";
 
     }
-    //Insert a default message for the initial load of the page
+  
+    //Calls getDetails() function if localStorage is not empty
     else {
 
         // Retrieve item
         let stationNum = localStorage.getItem("stationNumber");
         //call getDetails()
         getDetails(stationNum);
-
     }
 }
 
