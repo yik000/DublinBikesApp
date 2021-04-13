@@ -14,8 +14,6 @@ const Dublin = { lat: 53.349804, lng: -6.260310 };
 
 // Function to create map
 function initMap(markerSelection) {
-
-    console.log("MarkerSelection: ", markerSelection);
       
     //Set current time, nightTime and dayTime hours
     let currentTime = new Date();
@@ -29,11 +27,9 @@ function initMap(markerSelection) {
         return response.json();
     }).then(data => {
 
-        console.log("stationData: ", data);
-
         // Create Map in night mode between 8pm and 6am
         if (hours >= 20 || hours <= 6 ) {
-            console.log('here', hours);
+
             map = new google.maps.Map(document.getElementById("map"), {
                 center: Dublin,
                 zoom: 14,
@@ -397,8 +393,6 @@ function initMap(markerSelection) {
 
         weatherData = data[0];
 
-        console.log("lastWeatherUpdate:", weatherData);
-
         let weather = "";
         weather += "<h2>" + weatherData['description'] + "</h2>";
         weather += "<h3>" + weatherData['temp'] + "°</h3>";
@@ -540,9 +534,6 @@ function showStation(stationNum) {
         // Extract station info -> first (only) item in the response list
         let stationInfo = responseData[0];
 
-        // Print data to console
-        console.log("station" + stationNum + "_LastAvailability: ", stationInfo);
-
         // Create station info table
         let update = new Date(stationInfo.lastUpdate);
         let stationTable =
@@ -625,9 +616,6 @@ function hourlyAvailabilityChart(stationNum) {
         return response.json();
     }).then(data => {
 
-        // Print data to console
-        console.log("station" + stationNum + "_hourlyAvailabilityData: ", data);
-
         // Create chart
         var chart_data = new google.visualization.DataTable();
         chart_data.addColumn('number', 'Hour');
@@ -689,9 +677,6 @@ function dailyAvailabilityChart(stationNum) {
     fetch(url).then(response => {
         return response.json();
     }).then(data => {
-
-        // Print data to console
-        console.log("station" + stationNum + "_dailyAvailabilityData: ", data);
 
         // Create chart
         var chart_data = new google.visualization.DataTable();
