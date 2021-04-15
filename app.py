@@ -66,7 +66,8 @@ def hourly_availability(station_num):
     query_hourly = f"""
         SELECT avg(avail_bikes) AS 'avg_bikes', avg(avail_stands) AS 'avg_stands', hour(last_update) AS 'hour'
         FROM availability
-        WHERE number = {station_num} AND weekday(last_update) = {datetime.datetime.now().weekday()} AND hour(last_update) BETWEEN 7 AND 20
+        WHERE number = {station_num} AND weekday(last_update) = {datetime.datetime.now().weekday()} AND 
+        hour(last_update) BETWEEN 7 AND 20
         GROUP BY hour(last_update)
         ORDER BY hour(last_update) ASC;
         """
@@ -101,7 +102,8 @@ def station(station_num):
 def daily_availability(station_num):
     engine_daily = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
     query_daily = f"""
-        SELECT  avg(avail_bikes) AS 'avg_bikes', avg(avail_stands) AS 'avg_stands', dayname(last_update) AS 'day' FROM availability 
+        SELECT  avg(avail_bikes) AS 'avg_bikes', avg(avail_stands) AS 'avg_stands', dayname(last_update) AS 'day' 
+        FROM availability 
         where number = {station_num} 
         GROUP BY dayname(last_update) 
         ORDER BY weekday(last_update) ASC;
