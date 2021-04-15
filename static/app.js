@@ -20,7 +20,7 @@ function initMap(markerSelection) {
     let hours = currentTime.getHours();
 
     //Set currentInfoWindow to null
-    var currentInfoWindow = null;
+    let currentInfoWindow = null;
 
     // Fetch station data
     fetch("/stations").then(response => {
@@ -174,11 +174,11 @@ function initMap(markerSelection) {
                     currentInfoWindow.close();
                 }
                 
-                var banking = "Unavailable";
+                let banking = "Unavailable";
                 if(station.banking === 1){banking = "Available"}
             
                 // Create infoWindow for station marker
-                var infoWindow = new google.maps.InfoWindow({
+                let infoWindow = new google.maps.InfoWindow({
                     content:'<h3> ' + station.name + '</h3><b>Stands: </b>' + station.stands + '<br><b>Banking: </b>' + banking
                     + '<br><b>Available Bikes: </b>' + station.avail_bikes + '<br><b>Available Stands: </b>' + station.avail_stands
                 });
@@ -196,7 +196,7 @@ function initMap(markerSelection) {
             if (markerSelection === "bikes") {
 
                 // Get percent available
-                var percentBikesAvailable = station.avail_bikes / station.stands;
+                let percentBikesAvailable = station.avail_bikes / station.stands;
 
                 // Create colour marker based on percent available
                 switch (true) {
@@ -270,7 +270,7 @@ function initMap(markerSelection) {
             } else {
 
                 // Get percent available
-                var percentStandsAvailable = station.avail_stands / station.stands;
+                let percentStandsAvailable = station.avail_stands / station.stands;
 
                 // Create colour marker based on percent available
                 switch (true) {
@@ -344,7 +344,7 @@ function initMap(markerSelection) {
             }
 
             // Add station options to direction selectors
-            var directionOption = "<option value=\"" + station.position_lat +", " + station.position_long + "\">" + station.address + "</option>";
+            let directionOption = "<option value=\"" + station.position_lat +", " + station.position_long + "\">" + station.address + "</option>";
             document.getElementById("start").innerHTML += directionOption;
             document.getElementById("end").innerHTML += directionOption;
 
@@ -391,7 +391,7 @@ function initMap(markerSelection) {
         return response.json();
     }).then(data => {
 
-        weatherData = data[0];
+        let weatherData = data[0];
 
         let weather = "";
         weather += "<h2>" + weatherData['description'] + "   " + weatherData['temp'] + "°</h2>";
@@ -525,7 +525,7 @@ function getDetails(stationNum){
 function showStation(stationNum) {
 
     // Generate URL and fetch request from availability table
-    url = "/chosen_station/" + stationNum;
+    let url = "/chosen_station/" + stationNum;
     fetch(url).then(response => {
         return response.json();
     }).then(responseData => {
@@ -561,8 +561,8 @@ function showStation(stationNum) {
 function hourlyAvailabilityChart(stationNum) {
 
     // Chart styling options
-    var chartTitle = 'Average Hourly Availability';
-    var options = {
+    let chartTitle = 'Average Hourly Availability';
+    let options = {
 
         // Title of chart
         title: chartTitle,
@@ -611,13 +611,13 @@ function hourlyAvailabilityChart(stationNum) {
     };
 
     // Generate URL and fetch data
-    url = "/hourlyAvailability/" + stationNum
+    let url = "/hourlyAvailability/" + stationNum
     fetch(url).then(response => {
         return response.json();
     }).then(data => {
 
         // Create chart
-        var chart_data = new google.visualization.DataTable();
+        let chart_data = new google.visualization.DataTable();
         chart_data.addColumn('number', 'Hour');
         chart_data.addColumn('number', 'Bikes');
         chart_data.addColumn('number', 'Stands');
@@ -625,7 +625,7 @@ function hourlyAvailabilityChart(stationNum) {
             chart_data.addRow([ row.hour, row.avg_bikes, row.avg_stands ]);
         });
 
-        var chart = new google.visualization.ColumnChart(document.getElementById('hourly_chart'));
+        let chart = new google.visualization.ColumnChart(document.getElementById('hourly_chart'));
         chart.draw(chart_data, options)
 
     });
@@ -636,8 +636,8 @@ function hourlyAvailabilityChart(stationNum) {
 function dailyAvailabilityChart(stationNum) {
 
     // Chart styling options
-    var chartTitle = 'Average Daily Availability';
-    var options = {
+    let chartTitle = 'Average Daily Availability';
+    let options = {
         // Title of chart
         title: chartTitle,
         legend: 'top',
@@ -674,13 +674,13 @@ function dailyAvailabilityChart(stationNum) {
     };
 
     // Generate URL and fetch data
-    url = "/dailyAvailability/" + stationNum
+    let url = "/dailyAvailability/" + stationNum
     fetch(url).then(response => {
         return response.json();
     }).then(data => {
 
         // Create chart
-        var chart_data = new google.visualization.DataTable();
+        let chart_data = new google.visualization.DataTable();
         chart_data.addColumn('string', 'Day');
         chart_data.addColumn('number', 'Bikes');
         chart_data.addColumn('number', 'Stands');
@@ -688,7 +688,7 @@ function dailyAvailabilityChart(stationNum) {
             chart_data.addRow([row.day, row.avg_bikes, row.avg_stands]);
         });
 
-        var chart = new google.visualization.LineChart(document.getElementById('daily_chart'));
+        let chart = new google.visualization.LineChart(document.getElementById('daily_chart'));
         chart.draw(chart_data, options)
     });
 }
@@ -697,27 +697,27 @@ function dailyAvailabilityChart(stationNum) {
 // Create form for predicted availability input
 function createPredictionForm(stationNum){
 
-    var form_div = document.getElementById("prediction_input");
+    let form_div = document.getElementById("prediction_input");
 
     // Create form elements
-    var heading = document.createElement("h2");
+    let heading = document.createElement("h2");
     heading.innerHTML = "Select a date for predicted availability:";
 
-    var form = document.createElement("form");
+    let form = document.createElement("form");
 
     form.setAttribute("target", "output");
     form.setAttribute("action", "/predictionInput/" + stationNum);
     form.setAttribute("method", "POST");
     
     // Create date range for form calendar
-    var today = new Date();
-    day = 864e5;
-    var future = new Date(+today + day * 29);
+    let today = new Date();
+    let day = 864e5;
+    let future = new Date(+today + day * 29);
 
     today = today.toISOString().slice(0, 10)
     future = future.toISOString().slice(0, 10)
 
-    var dt_input = document.createElement("input");
+    let dt_input = document.createElement("input");
 
     dt_input.setAttribute("type", "date");
     dt_input.setAttribute("min", today);
@@ -725,7 +725,7 @@ function createPredictionForm(stationNum){
     dt_input.setAttribute("id", "predict_dt");
     dt_input.setAttribute("name", "predict_dt");
     
-    var submit = document.createElement("input");
+    let submit = document.createElement("input");
     submit.setAttribute("type", "submit");
     submit.setAttribute("id", "prediction_btn");
     submit.setAttribute("value", "Go!");
@@ -740,7 +740,7 @@ function createPredictionForm(stationNum){
 }
 
 function showPrediction() {
-    var x = document.getElementById("prediction_output");
+    let x = document.getElementById("prediction_output");
     if (x.style.display === "none") {
       x.style.display = "block";
     } else {
