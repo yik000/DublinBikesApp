@@ -25,13 +25,14 @@ def main_weather(user_input):
         final_date = int(datetime_object.timestamp())
 
         # Returning the main weather description
-        dictionary_weather = [result['list'][i] for i in range(len(result['list'])) if result['list'][i]['dt'] ==
-                              final_date]
-        if ['rain'] in dictionary_weather: 
-            weather = [dictionary_weather[0]['speed'], dictionary_weather[0]['rain'],
-                       dictionary_weather[0]['temp']['day']]
-        elif ['rain'] not in dictionary_weather:
-            weather = [dictionary_weather[0]['speed'], 0, dictionary_weather[0]['temp']['day']]
+        for i in range(len(result['list'])):
+            dictionary_weather = result['list'][i]
+
+        if 'rain' in dictionary_weather.keys():
+            weather = [dictionary_weather['speed'], dictionary_weather['rain'],
+                       dictionary_weather['temp']['day']]
+        else:
+            weather = [dictionary_weather['speed'], 0., dictionary_weather['temp']['day']]
 
         return weather
 
