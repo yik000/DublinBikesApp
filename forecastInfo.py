@@ -13,7 +13,7 @@ station = f"https://pro.openweathermap.org/data/2.5/forecast/climate?q={city}&ap
 # asks the api for a forecast based on the selected time of the user
 def main_weather(user_input):
     try:
-        #Query to OWM to ask for a 30-Day forecast
+        # Query to OWM to ask for a 30-Day forecast
         r = requests.get(station)
         result = r.json()
 
@@ -25,9 +25,11 @@ def main_weather(user_input):
         final_date = int(datetime_object.timestamp())
 
         # Returning the main weather description
-        dictionary_weather = [result['list'][i] for i in range(len(result['list'])) if result['list'][i]['dt'] == final_date]
+        dictionary_weather = [result['list'][i] for i in range(len(result['list'])) if result['list'][i]['dt'] ==
+                              final_date]
         if ['rain'] in dictionary_weather: 
-            weather = [dictionary_weather[0]['speed'],dictionary_weather[0]['rain'], dictionary_weather[0]['temp']['day']]
+            weather = [dictionary_weather[0]['speed'],dictionary_weather[0]['rain'],
+                       dictionary_weather[0]['temp']['day']]
         elif ['rain'] not in dictionary_weather:
             weather = [dictionary_weather[0]['speed'], 0, dictionary_weather[0]['temp']['day']]
 
