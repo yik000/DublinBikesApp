@@ -196,11 +196,11 @@ function initMap(markerSelection) {
             if (markerSelection === "bikes") {
 
                 // Get percent available
-                var percentAvailable = station.avail_bikes / station.stands;
+                var percentBikesAvailable = station.avail_bikes / station.stands;
 
                 // Create colour marker based on percent available
                 switch (true) {
-                    case percentAvailable > 0.8 && percentAvailable <= 1.0:
+                    case percentBikesAvailable > 0.8 && percentBikesAvailable <= 1.0:
                         colorMarkerBike = new google.maps.Circle({
                             strokeColor: "#00D100",
                             strokeOpacity: 0.8,
@@ -213,7 +213,7 @@ function initMap(markerSelection) {
                         });
                         break;
 
-                    case percentAvailable > 0.6 && percentAvailable <= 0.8:
+                    case percentBikesAvailable > 0.6 && percentBikesAvailable <= 0.8:
                         colorMarkerBike = new google.maps.Circle({
                             strokeColor: "#bfe84f",
                             strokeOpacity: 0.8,
@@ -226,7 +226,7 @@ function initMap(markerSelection) {
                         });
                         break;
 
-                    case percentAvailable > 0.4 && percentAvailable <= 0.6:
+                    case percentBikesAvailable > 0.4 && percentBikesAvailable <= 0.6:
                         colorMarkerBike = new google.maps.Circle({
                             strokeColor: "#e6ed13",
                             strokeOpacity: 0.8,
@@ -239,7 +239,7 @@ function initMap(markerSelection) {
                         });
                         break;
 
-                    case percentAvailable > 0.2 && percentAvailable <= 0.4:
+                    case percentBikesAvailable > 0.2 && percentBikesAvailable <= 0.4:
                         colorMarkerBike = new google.maps.Circle({
                             strokeColor: "#eda413",
                             strokeOpacity: 0.8,
@@ -252,7 +252,7 @@ function initMap(markerSelection) {
                         });
                         break;
 
-                    case percentAvailable > 0.0 && percentAvailable <= 0.2:
+                    case percentBikesAvailable > 0.0 && percentBikesAvailable <= 0.2:
                         colorMarkerBike = new google.maps.Circle({
                             strokeColor: "#B20000",
                             strokeOpacity: 0.8,
@@ -270,11 +270,11 @@ function initMap(markerSelection) {
             } else {
 
                 // Get percent available
-                var percentAvailable = station.avail_stands / station.stands;
+                var percentStandsAvailable = station.avail_stands / station.stands;
 
                 // Create colour marker based on percent available
                 switch (true) {
-                    case percentAvailable > 0.8 && percentAvailable <= 1.0:
+                    case percentStandsAvailable > 0.8 && percentStandsAvailable <= 1.0:
                         colorMarkerStand = new google.maps.Circle({
                             strokeColor: "#00D100",
                             strokeOpacity: 0.8,
@@ -287,7 +287,7 @@ function initMap(markerSelection) {
                         });
                         break;
 
-                    case percentAvailable > 0.6 && percentAvailable <= 0.8:
+                    case percentStandsAvailable > 0.6 && percentStandsAvailable <= 0.8:
                         colorMarkerStand = new google.maps.Circle({
                             strokeColor: "#bfe84f",
                             strokeOpacity: 0.8,
@@ -300,7 +300,7 @@ function initMap(markerSelection) {
                         });
                         break;
 
-                    case percentAvailable > 0.4 && percentAvailable <= 0.6:
+                    case percentStandsAvailable > 0.4 && percentStandsAvailable <= 0.6:
                         colorMarkerStand = new google.maps.Circle({
                             strokeColor: "#e6ed13",
                             strokeOpacity: 0.8,
@@ -313,7 +313,7 @@ function initMap(markerSelection) {
                         });
                         break;
 
-                    case percentAvailable > 0.2 && percentAvailable <= 0.4:
+                    case percentStandsAvailable > 0.2 && percentStandsAvailable <= 0.4:
                         colorMarkerStand = new google.maps.Circle({
                             strokeColor: "#eda413",
                             strokeOpacity: 0.8,
@@ -326,7 +326,7 @@ function initMap(markerSelection) {
                         });
                         break;
 
-                    case percentAvailable > 0.0 && percentAvailable <= 0.2:
+                    case percentStandsAvailable > 0.0 && percentStandsAvailable <= 0.2:
                         colorMarkerStand = new google.maps.Circle({
                             strokeColor: "#B20000",
                             strokeOpacity: 0.8,
