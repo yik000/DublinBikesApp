@@ -32,7 +32,7 @@ def main_weather(user_input):
             weather = [dictionary_weather['speed'], dictionary_weather['rain'],
                        dictionary_weather['temp']['day']]
         else:
-            weather = [dictionary_weather['speed'], 0., dictionary_weather['temp']['day']]
+            weather = [dictionary_weather['speed'], 0.0, dictionary_weather['temp']['day']]
 
         return weather
 
