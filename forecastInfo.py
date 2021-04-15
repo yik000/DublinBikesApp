@@ -26,7 +26,8 @@ def main_weather(user_input):
 
         # Returning the main weather description
         for i in range(len(result['list'])):
-            dictionary_weather = result['list'][i]
+            if result['list'][i] == final_date:
+                dictionary_weather = result['list'][i]
 
         if 'rain' in dictionary_weather.keys():
             weather = [dictionary_weather['speed'], dictionary_weather['rain'],
