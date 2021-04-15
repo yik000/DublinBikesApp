@@ -7,8 +7,11 @@ import forecastInfo
 import pickle
 import numpy as np
 
+
+# Load prediction model
 with open('model.pkl', 'rb') as handle:
- model = pickle.load(handle) 
+    model = pickle.load(handle)
+
 
 # dbinfo
 user = dbinfo.USER
