@@ -2,6 +2,7 @@
 
 let map, infoWindow, colorMarkerBike, colorMarkerStand;
 
+
 // Map bounds and center point
 const DublinCityBounds = {
     north: 53.418945,
@@ -15,11 +16,11 @@ const Dublin = { lat: 53.349804, lng: -6.260310 };
 // Function to create map
 function initMap(markerSelection) {
       
-    //Set current time, nightTime and dayTime hours
+    // Set current time, nightTime and dayTime hours
     let currentTime = new Date();
     let hours = currentTime.getHours();
 
-    //Set currentInfoWindow to null
+    // Set currentInfoWindow to null
     let currentInfoWindow = null;
 
     // Fetch station data
@@ -118,10 +119,12 @@ function initMap(markerSelection) {
                     },
                 ],
             });
+
         }
 
-        //Create Map in daytime anytime before 7pm
+        // Create Map in daytime anytime before 7pm
         else {
+
             map = new google.maps.Map(document.getElementById("map"), {
                 center: Dublin,
                 zoom: 14,
@@ -130,6 +133,7 @@ function initMap(markerSelection) {
                     strictBounds: true,
                 }
             });
+
         }
 
         // Load direction variables
@@ -200,6 +204,7 @@ function initMap(markerSelection) {
 
                 // Create colour marker based on percent available
                 switch (true) {
+
                     case percentBikesAvailable > 0.8 && percentBikesAvailable <= 1.0:
                         colorMarkerBike = new google.maps.Circle({
                             strokeColor: "#00D100",
@@ -274,6 +279,7 @@ function initMap(markerSelection) {
 
                 // Create colour marker based on percent available
                 switch (true) {
+
                     case percentStandsAvailable > 0.8 && percentStandsAvailable <= 1.0:
                         colorMarkerStand = new google.maps.Circle({
                             strokeColor: "#00D100",
@@ -350,7 +356,6 @@ function initMap(markerSelection) {
 
         });
 
-      
         // Add Geolocation services
         infoWindow = new google.maps.InfoWindow();
         const locationButton = document.createElement("button");
@@ -359,27 +364,30 @@ function initMap(markerSelection) {
         map.controls[google.maps.ControlPosition.TOP_CENTER].push(locationButton);
         locationButton.addEventListener("click", () => {
 
-          // Try HTML5 geolocation
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-              (position) => {
-                const pos = {
-                  lat: position.coords.latitude,
-                  lng: position.coords.longitude,
-                };
-                infoWindow.setPosition(pos);
-                infoWindow.setContent("Location found.");
-                infoWindow.open(map);
-                map.setCenter(pos);
-              },
-              () => {
-                handleLocationError(true, infoWindow, map.getCenter());
-              }
-            );
-          } else {
-            // Browser doesn't support Geolocation
-            handleLocationError(false, infoWindow, map.getCenter());
-          }
+            // Try HTML5 geolocation
+            if (navigator.geolocation) {
+
+                navigator.geolocation.getCurrentPosition(
+                    (position) => {
+                        const pos = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude,
+                        };
+                        infoWindow.setPosition(pos);
+                        infoWindow.setContent("Location found.");
+                        infoWindow.open(map);
+                        map.setCenter(pos);
+                    },
+                    () => {
+                        handleLocationError(true, infoWindow, map.getCenter());
+                    }
+                );
+
+            } else {
+                // Browser doesn't support Geolocation
+                handleLocationError(false, infoWindow, map.getCenter());
+            }
+
         });
 
     }).catch(err => {
@@ -470,8 +478,9 @@ initMap("bikes");
 //      <----------------------------- Station-Details (aside) ----------------------------->
 
 
-//Initialising function for drop down menu for stations
+// Initialising function for drop down menu for stations
 function dropDownStations() {
+
     // Fetch station data
     fetch("/stations").then(response => {
         return response.json();
@@ -480,11 +489,12 @@ function dropDownStations() {
         let eachStation = "<select name='station' id='selection' onchange='getDetails(this.value)' class='select'>" +
                           "<option value=\"\" disabled selected>Select a Station</option>";
       
-        //for loop to access stations json
+        // for loop to access stations json
         stationData.forEach(station => {
 
-            //Put station number to option value and listing station address
+            // Put station number to option value and listing station address
             eachStation += "<option value=" + station.number + ">" + station.address + "</option>";
+
         })
 
         document.getElementById('stationSelect').innerHTML = eachStation;
@@ -492,17 +502,18 @@ function dropDownStations() {
     }).catch(err => {
         console.log("Oops!", err);
     })
+
 }
 
 
-//Call dropDownStations function
+// Call dropDownStations function
 dropDownStations();
 
 
 // Details function to display functions when dropdown station/marker is clicked
 function getDetails(stationNum){
 
-    //Storing stationNum into localStorage
+    // Storing stationNum into localStorage
     localStorage.setItem("stationNumber", stationNum);
 
     // Empty divs and print loading message
@@ -518,10 +529,11 @@ function getDetails(stationNum){
 
     // Generate prediction input form
     createPredictionForm(stationNum);
+
 }
 
 
-//Displays the chosen station and displays dynamic data
+// Displays the chosen station and displays dynamic data
 function showStation(stationNum) {
 
     // Generate URL and fetch request from availability table
@@ -554,6 +566,7 @@ function showStation(stationNum) {
     }).catch(err => {
         console.log("Oops!", err);
     })
+
 }
 
 
@@ -608,6 +621,7 @@ function hourlyAvailabilityChart(stationNum) {
                 italic: false
             }
         }
+
     };
 
     // Generate URL and fetch data
@@ -629,6 +643,7 @@ function hourlyAvailabilityChart(stationNum) {
         chart.draw(chart_data, options)
 
     });
+
 }
 
 
@@ -638,12 +653,12 @@ function dailyAvailabilityChart(stationNum) {
     // Chart styling options
     let chartTitle = 'Average Daily Availability';
     let options = {
+
         // Title of chart
         title: chartTitle,
         legend: 'top',
         focusTarget: 'category',
         colors: ['#00D9C0', '#EF233C'],
-
         hAxis: {
             textStyle: {
                 fontSize: 8,
@@ -671,6 +686,7 @@ function dailyAvailabilityChart(stationNum) {
                 italic: false
             }
         }
+
     };
 
     // Generate URL and fetch data
@@ -690,7 +706,9 @@ function dailyAvailabilityChart(stationNum) {
 
         let chart = new google.visualization.LineChart(document.getElementById('daily_chart'));
         chart.draw(chart_data, options)
+
     });
+
 }
 
 
@@ -739,17 +757,21 @@ function createPredictionForm(stationNum){
  
 }
 
+
+// Show hidden prediction output div
 function showPrediction() {
+
     let x = document.getElementById("prediction_output");
     if (x.style.display === "none") {
       x.style.display = "block";
     } else {
       x.style.display = "block";
     }
+
 }
 
 
-//Loads localStorage and loads the saved station info last selected, including charts availability.
+// Loads localStorage and loads the saved station info last selected, including charts availability.
 window.onload = function() {
 
     // Check Storage is not empty
@@ -759,29 +781,30 @@ window.onload = function() {
 
     }
   
-    //Calls getDetails() function if localStorage is not empty
+    // Calls getDetails() function if localStorage is not empty
     else {
 
         // Retrieve item
         let stationNum = localStorage.getItem("stationNumber");
-        //call getDetails()
+        // call getDetails()
         getDetails(stationNum);
+
     }
+
 }
 
 
 // Directions calculator function
 function calculateAndDisplayRoute(directionsService, directionsRenderer) {
+
     directionsService.route(
+
         {
-            origin: {
-                query: document.getElementById("start").value,
-            },
-            destination: {
-                query: document.getElementById("end").value,
-            },
+            origin: {query: document.getElementById("start").value,},
+            destination: {query: document.getElementById("end").value,},
             travelMode: google.maps.TravelMode.BICYCLING,
         },
+
         (response, status) => {
             if(status === "OK") {
                 directionsRenderer.setDirections(response);
@@ -789,5 +812,7 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
                 window.alert("Directions request failed due to " + status);
             }
         }
+
     );
+
 }
