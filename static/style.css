@@ -46,11 +46,13 @@ body {
     padding: 5px;
 }
 
+
 /* ---------- Map Container ---------- */
 #mapContainer {
     height: 80%;
     width: 100%;
 }
+
 
 /* ---------- Map Buttons ---------- */
 #standsButton, #bikesButton {
@@ -140,6 +142,7 @@ label {
     margin-bottom: 80px;
 }
 
+
 /* ---------- Stations Table ---------- */
 /* --- Code Structure taken from https://dev.to/dcodeyt/creating-beautiful-html-tables-with-css-428l --- */
 #stationDetails table {
@@ -169,7 +172,6 @@ label {
     margin-bottom: 20px;
     text-align: center;
 }
-
 
 #daily_chart {
     height: 200px;
@@ -223,6 +225,7 @@ form {
     width: 150px;
     height: 40px;
 }
+
 
 /* ---------- Map ---------- */
 #map {
