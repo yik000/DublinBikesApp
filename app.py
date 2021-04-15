@@ -60,13 +60,13 @@ def availability():
 
 
 # Retrieve average hourly availability data for selected station
-@app.route("/hourlyAvailability/<int:stationNum>")
-def hourly_availability(stationNum):
+@app.route("/hourlyAvailability/<int:station_num>")
+def hourly_availability(station_num):
     engine_hourly = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
     query_hourly = f"""
         SELECT avg(avail_bikes) AS 'avg_bikes', avg(avail_stands) AS 'avg_stands', hour(last_update) AS 'hour'
         FROM availability
-        WHERE number = {stationNum} AND weekday(last_update) = {datetime.datetime.now().weekday()} AND hour(last_update) BETWEEN 7 AND 20
+        WHERE number = {station_num} AND weekday(last_update) = {datetime.datetime.now().weekday()} AND hour(last_update) BETWEEN 7 AND 20
         GROUP BY hour(last_update)
         ORDER BY hour(last_update) ASC;
         """
@@ -77,32 +77,32 @@ def hourly_availability(stationNum):
 # Query to get the most recent forecast from weather table
 @app.route("/weather_info")
 def weather():
-    engine_cWeather = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
-    query_cWeather = "SELECT * FROM weather ORDER BY time DESC LIMIT 1;"
-    df_weather = pd.read_sql_query(query_cWeather, engine_cWeather)
+    engine_c_weather = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
+    query_c_weather = "SELECT * FROM weather ORDER BY time DESC LIMIT 1;"
+    df_weather = pd.read_sql_query(query_c_weather, engine_c_weather)
     return df_weather.to_json(orient='records')
 
 
 # Query from availability table to obtain most recent data from each station
-@app.route("/chosen_station/<int:stationNum>")
-def station(stationNum):
-    engine_stationAvail = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
-    query_stationAvail = f"""
+@app.route("/chosen_station/<int:station_num>")
+def station(station_num):
+    engine_station_avail = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
+    query_station_avail = f"""
         SELECT a.number, s.address as address, status, avail_bikes, avail_stands, MAX(last_update) as lastUpdate 
         FROM availability a, stations s
-        WHERE a.number = {stationNum} AND a.number = s.number
+        WHERE a.number = {station_num} AND a.number = s.number
         GROUP BY a.number;"""
-    df_chosen_station = pd.read_sql_query(query_stationAvail, engine_stationAvail)
+    df_chosen_station = pd.read_sql_query(query_station_avail, engine_station_avail)
     return df_chosen_station.to_json(orient='records')
 
 
 # Retrieve the average availability for each day of the week for selected station
-@app.route("/dailyAvailability/<int:stationNum>")
-def daily_availability(stationNum):
+@app.route("/dailyAvailability/<int:station_num>")
+def daily_availability(station_num):
     engine_daily = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
     query_daily = f"""
         SELECT  avg(avail_bikes) AS 'avg_bikes', avg(avail_stands) AS 'avg_stands', dayname(last_update) AS 'day' FROM availability 
-        where number = {stationNum} 
+        where number = {station_num} 
         GROUP BY dayname(last_update) 
         ORDER BY weekday(last_update) ASC;
     """
