@@ -77,7 +77,7 @@ def hourly_availability(station_num):
 
 # Query to get the most recent forecast from weather table
 @app.route("/weather_info")
-def weather():
+def weather_update():
     engine_c_weather = create_engine(f"mysql+mysqlconnector://{user}:{password}@{uri}:{port}/{db}", echo=True)
     query_c_weather = "SELECT * FROM weather ORDER BY time DESC LIMIT 1;"
     df_weather = pd.read_sql_query(query_c_weather, engine_c_weather)
@@ -118,9 +118,9 @@ def data(station_num):
     user_input = request.form.to_dict()
     user_input['station'] = station_num
     # Call forecastInfo to return main description forecast based on selected date
-    weather = forecastInfo.main_weather(user_input)
-    weather = np.asarray(weather)
-    weather = weather.reshape(1, -1)
+    forecast_weather = forecastInfo.main_weather(user_input)
+    weather_array = np.asarray(forecast_weather)
+    weather = weather_array.reshape(1, -1)
     # pass station number and weather into prediction model
     result = model[station_num].predict(weather)
 
