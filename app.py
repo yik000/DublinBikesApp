@@ -6,7 +6,7 @@ import datetime
 import forecastInfo
 import pickle
 import numpy as np
-from sklearn.linear_model import LinearRegression
+
 with open('model.pkl', 'rb') as handle:
  model = pickle.load(handle) 
 
