@@ -175,7 +175,7 @@ function initMap(markerSelection) {
                 }
                 
                 var banking = "Unavailable";
-                if(station.banking == 1){banking = "Available"}
+                if(station.banking === 1){banking = "Available"}
             
                 // Create infoWindow for station marker
                 var infoWindow = new google.maps.InfoWindow({
@@ -193,7 +193,7 @@ function initMap(markerSelection) {
             });
 
             // Add colour markers based on selection
-            if (markerSelection == "bikes") {
+            if (markerSelection === "bikes") {
 
                 // Get percent available
                 var percentAvailable = station.avail_bikes / station.stands;
@@ -448,7 +448,7 @@ function markerSelector(controlDiv, map, markerSelection){
     });
 
     // Add styling for selected button
-    if (markerSelection == "bikes") {
+    if (markerSelection === "bikes") {
         bikesButton.style.backgroundColor= "black";
         bikesButton.style.color= "white";
     } else {
