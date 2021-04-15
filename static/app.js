@@ -166,7 +166,7 @@ function initMap(markerSelection) {
                 map: map,
             });
 
-            // Add eventlistener function to station marker
+            // Add event listener function to station marker
             marker.addListener("click", () => {
                 
                 // If open close currentInfoWindow
@@ -495,7 +495,7 @@ function dropDownStations() {
 }
 
 
-//Call dropdownstations function
+//Call dropDownStations function
 dropDownStations();
 
 
