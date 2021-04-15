@@ -175,7 +175,7 @@ function initMap(markerSelection) {
                 }
                 
                 var banking = "Unavailable";
-                if(station.banking == 1){banking = "Available"};
+                if(station.banking == 1){banking = "Available"}
             
                 // Create infoWindow for station marker
                 var infoWindow = new google.maps.InfoWindow({
@@ -460,7 +460,7 @@ function markerSelector(controlDiv, map, markerSelection){
     controlUI.appendChild(bikesButton);
     controlUI.appendChild(standsButton);
 
-};
+}
 
 
 // Call map function
@@ -518,7 +518,7 @@ function getDetails(stationNum){
 
     // Generate prediction input form
     createPredictionForm(stationNum);
-};
+}
 
 
 //Displays the chosen station and displays dynamic data
@@ -629,7 +629,7 @@ function hourlyAvailabilityChart(stationNum) {
         chart.draw(chart_data, options)
 
     });
-};
+}
 
 
 // Create Daily Availability Chart Function
@@ -691,7 +691,7 @@ function dailyAvailabilityChart(stationNum) {
         var chart = new google.visualization.LineChart(document.getElementById('daily_chart'));
         chart.draw(chart_data, options)
     });
-};
+}
 
 
 // Create form for predicted availability input
@@ -737,7 +737,7 @@ function createPredictionForm(stationNum){
     form_div.appendChild(heading);
     form_div.appendChild(form);
  
-};
+}
 
 function showPrediction() {
     var x = document.getElementById("prediction_output");
@@ -790,4 +790,4 @@ function calculateAndDisplayRoute(directionsService, directionsRenderer) {
             }
         }
     );
-};
+}
