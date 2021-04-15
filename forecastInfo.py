@@ -4,9 +4,9 @@ import requests
 import dbinfo
 
 
-city = dbinfo.city
-api_key = dbinfo.api_key
-units = dbinfo.units
+city = dbinfo.CITY
+api_key = dbinfo.API_KEY
+units = dbinfo.UNITS
 station = f"https://pro.openweathermap.org/data/2.5/forecast/climate?q={city}&appid={api_key}&units={units}"
 
 
