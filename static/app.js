@@ -275,7 +275,7 @@ function initMap(markerSelection) {
                 // Create colour marker based on percent available
                 switch (true) {
                     case percentAvailable > 0.8 && percentAvailable <= 1.0:
-                        colorMarkerBike = new google.maps.Circle({
+                        colorMarkerStand = new google.maps.Circle({
                             strokeColor: "#00D100",
                             strokeOpacity: 0.8,
                             strokeWeight: 2,
@@ -288,7 +288,7 @@ function initMap(markerSelection) {
                         break;
 
                     case percentAvailable > 0.6 && percentAvailable <= 0.8:
-                        colorMarkerBike = new google.maps.Circle({
+                        colorMarkerStand = new google.maps.Circle({
                             strokeColor: "#bfe84f",
                             strokeOpacity: 0.8,
                             strokeWeight: 2,
@@ -301,7 +301,7 @@ function initMap(markerSelection) {
                         break;
 
                     case percentAvailable > 0.4 && percentAvailable <= 0.6:
-                        colorMarkerBike = new google.maps.Circle({
+                        colorMarkerStand = new google.maps.Circle({
                             strokeColor: "#e6ed13",
                             strokeOpacity: 0.8,
                             strokeWeight: 2,
@@ -314,7 +314,7 @@ function initMap(markerSelection) {
                         break;
 
                     case percentAvailable > 0.2 && percentAvailable <= 0.4:
-                        colorMarkerBike = new google.maps.Circle({
+                        colorMarkerStand = new google.maps.Circle({
                             strokeColor: "#eda413",
                             strokeOpacity: 0.8,
                             strokeWeight: 2,
@@ -327,7 +327,7 @@ function initMap(markerSelection) {
                         break;
 
                     case percentAvailable > 0.0 && percentAvailable <= 0.2:
-                        colorMarkerBike = new google.maps.Circle({
+                        colorMarkerStand = new google.maps.Circle({
                             strokeColor: "#B20000",
                             strokeOpacity: 0.8,
                             strokeWeight: 2,
