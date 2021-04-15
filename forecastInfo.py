@@ -28,7 +28,7 @@ def main_weather(user_input):
         dictionary_weather = [result['list'][i] for i in range(len(result['list'])) if result['list'][i]['dt'] ==
                               final_date]
         if ['rain'] in dictionary_weather: 
-            weather = [dictionary_weather[0]['speed'],dictionary_weather[0]['rain'],
+            weather = [dictionary_weather[0]['speed'], dictionary_weather[0]['rain'],
                        dictionary_weather[0]['temp']['day']]
         elif ['rain'] not in dictionary_weather:
             weather = [dictionary_weather[0]['speed'], 0, dictionary_weather[0]['temp']['day']]
