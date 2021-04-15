@@ -95,7 +95,7 @@ label {
     padding-right: 5px;
 }
 
-#label {
+.label {
     float: left;
     margin-right: 0;
     text-align: right;
@@ -284,7 +284,7 @@ form {
         margin-bottom: 20px;
     }
 
-    #label {
+    .label {
         font-size: 14px;
         width: 20%;
         clear: both;
