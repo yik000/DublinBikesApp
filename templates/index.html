@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
     <!--====== HEAD ======-->
     <head>
 
@@ -9,6 +10,7 @@
         <meta name="author" content="Conor Kiy">
 
         <title>DublinBikes</title>
+        <link rel="shortcut icon" href="https://i.ibb.co/ftPkhJ0/DBHead-Logo.png" type="image/x-icon/">
 
         <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
         <script type="text/javascript" src="{{ url_for('static', filename='app.js') }}"></script>
@@ -19,12 +21,15 @@
 
     </head>
 
+
     <!--====== BODY ======-->
     <body>
 
         <!------ Header ------>
         <header id="header">
-            <h1>Dublin Bikes</h1>
+            <img id="logo" src="https://i.ibb.co/m5XDTxt/DBFinal.png" alt="logo">
+            <img id="heading" src="https://i.ibb.co/kyq6MCr/DBHead.png" alt="dbheading" >
+            <div id="weatherInfo"></div>
         </header>
 
         <!------ Map Container ------>
@@ -32,22 +37,40 @@
 
             <!------ Station Info ------>
             <div id="station">
-    
+
+                <!------ Directions Section ------>
+                <h1>Directions</h1>
+                <div id="directions">
+                    <!-- origin selector -->
+                    <div class="label">From: </div>
+                    <select id="start">
+                        <option value="" disabled selected>Select a Station</option>
+                    </select>
+                    <!-- destination selector -->
+                    <div class="label">To: </div>
+                    <select id="end">
+                        <option value="" disabled selected>Select a Station</option>
+                    </select>
+                </div>
+
+                <!------ Details Section ------>
                 <h1>Station Details</h1>
     
                 <!------ Dropdown Station Selection ------>
                 <div id="stationSelect">
                     <select name="station" id="selection" class="select">
-                        <option>Select a Station</option>
+                        <option value="" disabled selected>Select a Station</option>
                     </select>
                 </div>
 
-
                 <!------ Detailed Station Info ------>
-                <div id="stationDetails">Select a station to see details</div>
+                <div id="stationDetails"></div>
                 <div id="hourly_chart"></div>
                 <div id="daily_chart"></div>
-                
+                <div id="prediction_input"></div>
+                <div id="prediction_output" style="display:none">
+                    <h3>Predicted number of available bikes:</h3><iframe name="output" id="output" frameborder="0"></iframe>
+                </div>
 
             </div>
     
@@ -60,5 +83,6 @@
         <footer id="footer">Copyright &copy; 2021 TeamRocket-DublinBikes</footer>
 
     </body>
+
 
 </html>
