@@ -28,14 +28,17 @@ def main_weather(user_input):
         dictionary_weather = dict()
         for key in range(len(result['list'])):
             if result['list'][key]['dt'] == final_date:
-                dictionary_weather = {'speed': result['list'][key]['speed'], 'temp': result['list'][key]['temp']['day'],
-                                      'rain': result['list'][key]['rain']}
+                if 'rain' in result['list'][key]:
+                    dictionary_weather = {'speed': result['list'][key]['speed'], 'temp': result['list'][key]['temp']['day'],
+                                          'rain': result['list'][key]['rain']}
+                else:
+                    dictionary_weather = {'speed': result['list'][key]['speed'], 'temp': result['list'][key]['temp']['day']}
 
         if 'rain' in dictionary_weather.keys():
-            weather = [dictionary_weather['speed'], dictionary_weather['rain'],
-                       dictionary_weather['temp']]
+                weather = [dictionary_weather['speed'], dictionary_weather['rain'],
+                                   dictionary_weather['temp']]
         else:
-            weather = [dictionary_weather['speed'], 0.0, dictionary_weather['temp']]
+                weather = [dictionary_weather['speed'], 0.0, dictionary_weather['temp']]
 
         return weather
 
