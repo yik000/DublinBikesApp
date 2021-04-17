@@ -7,7 +7,7 @@ The application is available to view at [http://52.201.254.55:5000/](http://52.2
 ## The Repository
 
 ### Root Folder
-The main app.py file is located in the root folder. Along with this are the requirements file, the prediction model, 
+The main app.py file is located in the root folder. Along with this are the requirements file, the prediction model (model.pkl) and a JavaScript file which contains a function to fetch forecasted weather for Dublin city (forecastInfo.py).<br/> 
 Also included in the root folder for the project submission are both the weather and bike data scrapers and the Jupyter notebook containing the model development code.
 
 ### Static Folder
